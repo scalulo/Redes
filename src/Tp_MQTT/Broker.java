@@ -4,9 +4,9 @@ import java.net.*;
 import java.util.*;
 
 public class Broker {
-    private static final int PUERTO = 9090;
+    private static int PUERTO = 9090;
     // Guardamos cada cliente y sus tópicos
-    private static Map<Socket, ClienteInfo> clientes = new HashMap<>();
+    private static HashMap<Socket, ClienteInfo> clientes = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(PUERTO);
@@ -26,8 +26,8 @@ public class Broker {
 
     private static void manejarCliente(Socket socket) {
         try (
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //Datos que vienen del cliente
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)//Datos que van al cliente
         ) {
             // Nombre del cliente
             String nombre = in.readLine();
@@ -69,13 +69,26 @@ public class Broker {
         switch (accion) {
             case "SUB":
                 if (partes.length < 2) {
-                    System.out.println(" Falta tópico en SUB.");
+                    System.out.println(" Falta tópico para suscribirse.");
                     return;
                 }
                 String topicoSub = partes[1].trim();
                 cliente.suscribir(topicoSub);
                 System.out.println(nombre + " se suscribió a: " + topicoSub);
                 break;
+
+            case "DSUB":
+                if (partes.length<2){
+                    System.out.println(" Falta tópico para desuscribirse.");
+                    return;
+                }
+                String topicoDsub = partes[1].trim();
+                cliente.desuscribir(topicoDsub);
+                System.out.println(nombre + " se desuscribió a: " + topicoDsub);
+                break;
+
+
+
 
             case "PUB":
                 if (partes.length < 3) {

@@ -7,7 +7,7 @@ import java.util.Set;
 class ClienteInfo {
     private String nombre;
     private PrintWriter out;
-    private Set<String> topicos;
+    private HashSet<String> topicos;
 
     public ClienteInfo(String nombre, PrintWriter out) {
         this.nombre = nombre;
@@ -22,4 +22,5 @@ class ClienteInfo {
     public void suscribir(String topico) {
         topicos.add(topico);
     }
+    public void desuscribir (String topico) {topicos.remove(topico);}
 }

@@ -6,11 +6,15 @@ import java.util.Scanner;
 public class Cliente {
     public static void main(String[] args) {
         try (
-                Socket socket = new Socket("localhost", 9090);
                 Scanner scanner = new Scanner(System.in);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+
         ) {
+            System.out.print("Ingrese la IP del broker: ");
+            String ip=scanner.nextLine();
+            Socket socket = new Socket(ip, 9090);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
             // Nombre del cliente
             System.out.print(" Ingrese su nombre: ");
             String nombre = scanner.nextLine();
@@ -24,7 +28,7 @@ public class Cliente {
                         String recibido;
                         while ((recibido = in.readLine()) != null) {
                             System.out.println(recibido);
-                            System.out.print("> ");
+                            System.out.print("- ");
                         }
                     } catch (IOException e) {
                         System.out.println("Conexión cerrada.");
@@ -37,6 +41,7 @@ public class Cliente {
             // Comandos
             System.out.println("Comandos:");
             System.out.println("  SUB  (topico)→  Suscribirse a un topico");
+            System.out.println("  DSUB  (topico)→  Desuscribirse a un topico");
             System.out.println("  PUB (topico, mensaje)  →  Publicar");
             System.out.println("  chau  →  Salir");
 
