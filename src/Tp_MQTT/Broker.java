@@ -73,16 +73,26 @@ public class Broker {
                     return;
                 }
                 String topicoSub = partes[1].trim();
+
+                if(cliente.getTopicos().contains(topicoSub)){
+                    System.out.println(cliente.getNombre() +" ya esta suscripto a este topico (" +topicoSub+ ").");
+                    return;
+                }
+
                 cliente.suscribir(topicoSub);
                 System.out.println(nombre + " se suscribió a: " + topicoSub);
                 break;
 
             case "DSUB":
-                if (partes.length<2){
+                String topicoDsub = partes[1].trim();
+                if (partes.length<2  ){
                     System.out.println(" Falta tópico para desuscribirse.");
                     return;
                 }
-                String topicoDsub = partes[1].trim();
+                if(!cliente.getTopicos().contains(topicoDsub)){
+                    System.out.println(cliente.getNombre() +" no esta suscripto a este topico (" + topicoDsub+").");
+                    return;
+                }
                 cliente.desuscribir(topicoDsub);
                 System.out.println(nombre + " se desuscribió a: " + topicoDsub);
                 break;
