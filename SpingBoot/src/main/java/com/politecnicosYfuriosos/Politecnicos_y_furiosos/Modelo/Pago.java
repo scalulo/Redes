@@ -31,6 +31,7 @@ public class Pago {
         PENDIENTE, COMPLETADO, RECHAZADO
     }
 
+
     public Integer getId() {
         return id;
     }
