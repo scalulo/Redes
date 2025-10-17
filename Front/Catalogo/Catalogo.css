@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #000000;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.navbar-nav .nav-link {
+    color: #888888;
+    margin: 0 1.5rem;
+    font-size: 0.95rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 8rem 0 6rem;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #888888;
+    margin-bottom: 3rem;
+}
+
+.search-bar {
+    max-width: 400px;
+    margin-top: 2rem;
+}
+
+.search-bar .form-control {
+    background-color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+}
+
+/* Categories Section */
+.categories-section {
+    padding: 4rem 0;
+}
+
+.category-card {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+     
+.category-card.suv {
+    background-image: url('/Front/Catalogo/imagenes/GLS-500x276\ \(2\).jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.category-card.coupe {
+    background-image: url('/Front/Catalogo/imagenes/Lexus-LC-090420-03\ \(1\).jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.category-card.disponible {
+    background-image: url('/Front/Catalogo/imagenes/pininfarina-b95-112-64dbb27f1491a.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.category-card:hover {
+    transform: translateY(-10px);
+    background-color: #252525;
+}
+
+.category-icon {
+    margin-bottom: 2rem;
+}
+
+.category-title {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Grid Section */
+.grid-section {
+    padding: 4rem 0;
+}
+
+.grid-card {
+    border-radius: 15px;
+    padding: 4rem 2rem;
+    text-align: center;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+.grid-card.img1{
+    background-image: url(/Front/Catalogo/imagenes/Sin\ título\ \(2\).jpeg);
+}
+.grid-card.img2{
+    background-image: url();
+}
+.grid-card.img3{
+    background-image: url();
+}
+.grid-card.img4{
+    background-image: url();
+}
+.grid-card:hover {
+    transform: scale(1.05);
+}
+
+/* Featured Section */
+.featured-section {
+    padding: 4rem 0;
+}
+
+.featured-card {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    padding: 3rem;
+}
+
+.featured-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.featured-icons .square-icon,
+.featured-icons .circle-icon,
+.featured-icons .triangle-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.featured-icons .triangle-icon {
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #444444;
+}
+
+.featured-label {
+    color: #888888;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.featured-description {
+    color: #cccccc;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cta-subtitle {
+    font-size: 1.2rem;
+    color: #888888;
+    margin-bottom: 2.5rem;
+}
+
+.cta-section .btn {
+    padding: 0.75rem 2.5rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #0a0a0a;
+    padding: 3rem 0;
+    border-top: 1px solid #1a1a1a;
+}
+
+.footer-brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.footer-heading {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    color: #888888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .category-card {
+        height: 250px;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+}
