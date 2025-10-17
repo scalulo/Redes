@@ -1,14 +1,15 @@
-package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto;
+package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login;
 
 public class ClienteRegistroDTO {
     private String nombre;
     private String apellido;
-    private String email;
+    private int codigo_postal;
     private String telefono;
     private String dni;
     private String direccion;
     private String usuario;
     private String contrasena;
+    private String pais;
 
     public ClienteRegistroDTO() {}
 
@@ -17,8 +18,23 @@ public class ClienteRegistroDTO {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellido() { return apellido; }
     public void setApellido(String apellido) { this.apellido = apellido; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+
+    public int getCodigo_postal() {
+        return codigo_postal;
+    }
+
+    public void setCodigo_postal(int codigo_postal) {
+        this.codigo_postal = codigo_postal;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
     public String getDni() { return dni; }

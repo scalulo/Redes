@@ -1,14 +1,13 @@
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Service;
 
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.ClienteRegistroDTO;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login_DTO;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Respuesta_login_DTO;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.ClienteRegistroDTO;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.Login_DTO;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.Respuesta_login_DTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.Cliente;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,11 +41,13 @@ public class Login_service {
         ClienteRegistroDTO dto = new ClienteRegistroDTO();
         dto.setNombre(cliente.getNombre());
         dto.setApellido(cliente.getApellido());
-        dto.setEmail(cliente.getEmail());
+        dto.setCodigo_postal(cliente.getCodigo_postal());
         dto.setTelefono(cliente.getTelefono());
         dto.setDni(cliente.getDni());
         dto.setDireccion(cliente.getDireccion());
         dto.setUsuario(cliente.getUsuario());
+        dto.setPais(cliente.getPais());
+
         return dto;
     }
 }

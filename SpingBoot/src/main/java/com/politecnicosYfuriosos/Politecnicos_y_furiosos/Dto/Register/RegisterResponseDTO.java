@@ -1,15 +1,16 @@
-package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto;
+package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Register;
 
-public class Respuesta_login_DTO {
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.ClienteRegistroDTO;
 
+public class RegisterResponseDTO {
     private boolean success;
     private String mensaje;
     private ClienteRegistroDTO cliente;
 
     // Constructores
-    public Respuesta_login_DTO() {}
+    public RegisterResponseDTO() {}
 
-    public Respuesta_login_DTO(boolean success, String mensaje, ClienteRegistroDTO cliente) {
+    public RegisterResponseDTO(boolean success, String mensaje, ClienteRegistroDTO cliente) {
         this.success = success;
         this.mensaje = mensaje;
         this.cliente = cliente;
@@ -25,3 +26,4 @@ public class Respuesta_login_DTO {
     public ClienteRegistroDTO getCliente() { return cliente; }
     public void setCliente(ClienteRegistroDTO cliente) { this.cliente = cliente; }
 }
+

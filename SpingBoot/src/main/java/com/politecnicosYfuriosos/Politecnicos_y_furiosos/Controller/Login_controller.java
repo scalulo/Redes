@@ -1,10 +1,7 @@
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Controller;
 
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login_DTO;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Respuesta_login_DTO;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Service.Login_service;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login_DTO;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Respuesta_login_DTO;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.Login_DTO;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.Respuesta_login_DTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Service.Login_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

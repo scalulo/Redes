@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="Registro.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div id="alertContainer"></div>
+        
+        <div class="cards">
+            <a class="login">Registro</a>
+            
+           <form id="loginForm" style="gap: 35px;">
+               <div class="inputs"> 
+
+                <div class="inputBox_">
+                    <div>
+                    <input type="text" id="nombre" required>
+                    <span class="user">Nombre</span>
+                    </div>
+
+                    <div>
+                    <input type="text" id="apellido" required>
+                    <span class="user">Apellido</span>
+                </div>
+                </div>
+
+                <div class="inputBox">
+                    <input type="number" id="dni" required>
+                    <span class="user">dni</span>
+                </div>
+                
+                <div class="inputBox">
+                    <input type="email" id="usuario" required>
+                    <span class="user">Mail</span>
+                </div>
+
+                <div class="inputBox">
+                    <input type="password" id="contrasena" required>
+                    <span>Password</span>
+                </div>
+<div class="inputBox country-selector">
+    <input type="text" id="pais" readonly required tabindex="0">
+    <span class="user">País</span>
+    
+    <div class="country-dropdown">
+        <label><input type="radio" name="country" value="Argentina">Argentina</label>
+        <label><input type="radio" name="country" value="Australia">Australia</label>
+        <label><input type="radio" name="country" value="Austria">Austria</label>
+        <label><input type="radio" name="country" value="Bélgica">Bélgica</label>
+        <label><input type="radio" name="country" value="Brasil">Brasil</label>
+        <label><input type="radio" name="country" value="Canadá">Canadá</label>
+        <label><input type="radio" name="country" value="Chile">Chile</label>
+        <label><input type="radio" name="country" value="China">China</label>
+        <label><input type="radio" name="country" value="Colombia">Colombia</label>
+        <label><input type="radio" name="country" value="Corea del Sur">Corea del Sur</label>
+        <label><input type="radio" name="country" value="Costa Rica">Costa Rica</label>
+        <label><input type="radio" name="country" value="Dinamarca">Dinamarca</label>
+        <label><input type="radio" name="country" value="Ecuador">Ecuador</label>
+        <label><input type="radio" name="country" value="Egipto">Egipto</label>
+        <label><input type="radio" name="country" value="España">España</label>
+        <label><input type="radio" name="country" value="Estados Unidos">Estados Unidos</label>
+        <label><input type="radio" name="country" value="Finlandia">Finlandia</label>
+        <label><input type="radio" name="country" value="Francia">Francia</label>
+        <label><input type="radio" name="country" value="Alemania">Alemania</label>
+        <label><input type="radio" name="country" value="Grecia">Grecia</label>
+        <label><input type="radio" name="country" value="India">India</label>
+        <label><input type="radio" name="country" value="Italia">Italia</label>
+        <label><input type="radio" name="country" value="Japón">Japón</label>
+        <label><input type="radio" name="country" value="México">México</label>
+        <label><input type="radio" name="country" value="Países Bajos">Países Bajos</label>
+        <label><input type="radio" name="country" value="Perú">Perú</label>
+        <label><input type="radio" name="country" value="Portugal">Portugal</label>
+        <label><input type="radio" name="country" value="Reino Unido">Reino Unido</label>
+        <label><input type="radio" name="country" value="Rusia">Rusia</label>
+        <label><input type="radio" name="country" value="Suiza">Suiza</label>
+        <label><input type="radio" name="country" value="Uruguay">Uruguay</label>
+        <label><input type="radio" name="country" value="Venezuela">Venezuela</label>
+    </div>
+</div>
+
+                    <div class="inputBox_">
+                    <div>
+                    <input type="text" id="direccion" required>
+                    <span class="user">Direccion</span>
+                    </div>
+
+                    <div>
+                    <input type="number" id="c_postal" required>
+                    <span class="user">CP code</span>
+                </div>
+                </div>
+
+                <button type="submit" id="btnLogin" class="enter">
+                    <span id="btnText">Enter</span>
+                    <span id="btnLoading" class="loading" style="display: none;"></span>
+                </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+<script>
+    // Manejar selección de país
+    document.querySelectorAll('.country-dropdown input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const selector = this.closest('.country-selector');
+            const input = selector.querySelector('input[type="text"]');
+            input.value = this.value;
+            selector.classList.add('has-value');
+            input.blur(); // Cierra el dropdown
+        });
+    });
+</script>
+
+</body>
+</html>

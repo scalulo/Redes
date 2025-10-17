@@ -1,0 +1,308 @@
+/* From Uiverse.io by JkHuger */ 
+body{
+    background-color: #000 !important;
+}
+.login {
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  font-weight: bold;
+  font-size: x-large;
+  text-decoration: none;
+}
+.inputs{
+ display: flex;
+  flex-direction: column;
+  gap: 35px;
+  align-items: center;
+  width: 100%;}
+
+
+
+.cards {
+  margin: 10% 10% 8% 35%;
+  display: flex;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  width: 300px;
+  flex-direction: column;
+  gap: 35px;
+  background-color: #000000;
+  box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15),
+                        0 4px 16px rgba(218, 165, 32, 0.1),
+                        0 2px 8px rgba(218, 165, 32, 0.08);
+  border-radius: 8px;
+}
+
+/* le saco el incrementador al input tipo numero */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.inputBox_{
+
+      display: flex;
+      gap: 20px;
+}
+.inputBox_ > div {
+  position: relative;
+  flex: 1;
+}
+
+
+
+.inputBox, .inputBox_  {
+  position: relative;
+  width: 250px;
+}
+
+.inputBox input, .inputBox_ input {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  color: #fff7f7;
+  font-size: 1em;
+  background: transparent;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transition: 0.1s;
+  border-bottom-left-radius: 8px;
+}
+
+.inputBox span, .inputBox_ span {
+  margin-top: 5px;
+  position: absolute;
+  left: 0;
+  transform: translateY(-2px);
+  margin-left: 10px;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 12px;
+  color: #ffffff;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 3px;
+  border-radius: 8px;
+}
+
+.inputBox_ input:valid~span,
+.inputBox_ input:focus~span{
+      transform: translateX(43px) translateY(-25px) !important;
+
+}
+.inputBox input:valid~span, .inputBox_ input:valid~span,
+.inputBox input:focus~span , .inputBox_ input:focus~span {
+  transform: translateX(143px) translateY(-25px);
+  font-size: 0.8em;
+  padding: 5px 10px;
+  background: #ffffff;
+  letter-spacing: 0.2em;
+  color: #000000;
+  border: 2px;
+
+}
+
+.inputBox input:valid,.inputBox_ input:valid,
+.inputBox input:focus, .inputBox_ input:focus {
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+}
+
+
+
+
+
+/* Select de país */
+.country-selector {
+    cursor: pointer;
+}
+
+.country-selector input[type="text"] {
+    cursor: pointer;
+}
+
+.country-selector::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 18px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #ffffff;
+    pointer-events: none;
+    transition: transform 0.3s;
+}
+
+.country-selector:focus-within::after {
+    transform: rotate(180deg);
+}
+
+.country-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #000000;
+    border: 0 solid #ffffff;
+    border-radius: 8px;
+    margin-top: 5px;
+    z-index: 1000;
+    transition: max-height 0.4s ease, border 0.3s ease;
+    box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
+}
+
+.country-selector:focus-within .country-dropdown {
+    max-height: 250px;
+    border: 2px solid #ffffff;
+    overflow-y: auto;
+}
+
+.country-dropdown label {
+    display: block;
+    padding: 12px 15px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+    text-transform: none;
+    letter-spacing: 1px;
+}
+
+.country-dropdown label:hover {
+    background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.2), transparent);
+    padding-left: 20px;
+}
+
+.country-dropdown input[type="radio"] {
+    display: none;
+}
+
+.country-dropdown input[type="radio"]:checked + label {
+    background-color: rgba(255, 255, 255, 0.1);
+    font-weight: bold;
+}
+
+.country-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+
+.country-dropdown::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 8px;
+}
+
+.country-dropdown::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ffffff, rgba(218, 165, 32, 0.8));
+    border-radius: 8px;
+}
+
+/* Animar label cuando tiene valor */
+.country-selector.has-value input[type="text"] ~ span {
+    transform: translateX(143px) translateY(-25px);
+    font-size: 0.8em;
+    padding: 5px 10px;
+    background: #ffffff;
+    letter-spacing: 0.2em;
+    color: #000000;
+}
+
+.country-selector.has-value input[type="text"] {
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+}
+
+/* estilos para el enter */
+
+.enter {
+  height: 45px;
+  width: 100px;
+  border-radius: 5px;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 1em;
+  color: #ffffff;
+}
+
+.enter:hover {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+        .enter:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 300px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+@media (max-width:770px){
+    .cards{
+        margin:  10% 10% 8% 32%;
+    }
+}
+@media (max-width:580px){
+    .cards{
+        margin:  10% 10% 8% 20%;
+    }
+}
+
+@media (max-width:450px){
+    .cards{
+        margin:  10% 10% 8% 13%;
+    }
+}
+
+@media (max-width:400px){
+    .cards{
+        margin:  10% 10% 8% 9%;
+    }
+}
+

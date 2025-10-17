@@ -11,12 +11,13 @@ public class Cliente {
 
     private String nombre;
     private String apellido;
-    private String email;
+    private int codigo_postal;
     private String telefono;
     private String dni;
     private String direccion;
     private String usuario;
     private String contrasena;
+    private String pais;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Reserva> reservas;
@@ -48,12 +49,20 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public String getEmail() {
-        return email;
+    public int getCodigo_postal() {
+        return codigo_postal;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCodigo_postal(int email) {
+        this.codigo_postal = email;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public String getTelefono() {

@@ -11,10 +11,14 @@ body{
   font-size: x-large;
   text-decoration: none;
 }
+.inputs{
+ display: flex;
+  flex-direction: column;
+  gap: 35px;
+  align-items: center;
+  width: 100%;}
 
-.card{
-    background-color: #000;
-}
+
 
 
 .cards {
@@ -143,7 +147,12 @@ body{
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
+        
+@media (max-width:770px){
+    .cards{
+        margin:  10% 10% 8% 32%;
+    }
+}
 @media (max-width:580px){
     .cards{
         margin:  10% 10% 8% 20%;
@@ -155,3 +164,10 @@ body{
         margin:  10% 10% 8% 13%;
     }
 }
+
+@media (max-width:400px){
+    .cards{
+        margin:  10% 10% 8% 9%;
+    }
+}
+

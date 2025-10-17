@@ -1,4 +1,4 @@
-package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto;
+package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login;
 
 public class Login_DTO {
     private String usuario;
