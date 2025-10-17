@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGA - Gestión de Garage Premium</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">RGA</div>
+        <div class="nav-links">
+            <a href="#servicios">Servicios</a>
+            <a href="#garage">Garage</a>
+            <a href="#contacto">Contacto</a>
+            <button class="btn-login">Login</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Gestión de Garage</h1>
+            <p>ADMINISTRA TU AUTO Y ESPACIO PREMIUM</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="document.getElementById('garage').scrollIntoView({behavior: 'smooth'})">Reservar</button>
+                <button class="btn-secondary">Explorar</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="servicios">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <div class="icon-shape" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+                </div>
+                <h3>Tu auto</h3>
+                <p>Accede a la gestión premium de tu vehículo con monitoreo las 24 horas y asistencia personalizada.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <div class="icon-shape" style="border-radius: 50%;"></div>
+                </div>
+                <h3>Mapa del garage</h3>
+                <p>Visualiza en tiempo real el estado del garage con nuestro sistema interactivo de mapeo inteligente.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <div class="icon-shape" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+                </div>
+                <h3>Reservar lugar</h3>
+                <p>Selecciona y reserva tu espacio ideal con total flexibilidad y garantía de disponibilidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reservation-section" id="garage">
+        <div class="section-title">
+            <h2>Reservar Lugar Disponible</h2>
+            <p>SELECCIONA TU ESPACIO PREMIUM</p>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box available"></div>
+                <span>Disponible</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box selected"></div>
+                <span>Seleccionado</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box occupied"></div>
+                <span>Ocupado</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box premium-legend"></div>
+                <span>Premium</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box moto-legend"></div>
+                <span>Motos</span>
+            </div>
+        </div>
+
+        <div class="garage-container" id="garageLayout">
+            <!-- Contenido dinámico -->
+        </div>
+
+        <div class="summary">
+            <div class="summary-content">
+                <div class="summary-item">
+                    <h3>Espacios Seleccionados</h3>
+                    <p id="selectedCount">0</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Total</h3>
+                    <p id="totalPrice">$0</p>
+                </div>
+                <div class="summary-item">
+                    <button class="btn-confirm" onclick="confirmReservation()" id="reserveBtn" disabled>
+                        Confirmar Reserva
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="logo" style="margin-bottom: 20px;">RGA</div>
+        <p>© 2025 RGA GARAGE PREMIUM. TODOS LOS DERECHOS RESERVADOS.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
