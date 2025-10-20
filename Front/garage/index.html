@@ -60,27 +60,47 @@
             <p>SELECCIONA TU ESPACIO PREMIUM</p>
         </div>
 
+        <div class="filters-container">
+            <div class="filter-group">
+                <label>Piso</label>
+                <select id="floorSelector" onchange="changeFloor()">
+                    <option value="0">Planta Baja - Acceso Principal</option>
+                    <option value="1">Primer Nivel - Zona Premium</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Fecha</label>
+                <input type="date" id="dateSelector" onchange="changeDate()">
+            </div>
+
+            <!-- 🔽 agregado -->
+            <div class="filter-group">
+                <label>Duración</label>
+                <select id="durationSelector" onchange="toggleTimeSelector(); updateSummary()">
+                    <option value="1">1 Mes</option>
+                    <option value="3">3 Meses</option>
+                    <option value="6">6 Meses</option>
+                    <option value="12">12 Meses</option>
+                    <option value="1h">1 Hora</option>
+                    <option value="6h">6 Horas</option>
+                    <option value="12h">12 Horas</option>
+                </select>
+            </div>
+
+            <div class="filter-group" id="timeGroup" style="display: none;">
+                <label>Hora de inicio</label>
+                <input type="time" id="timeSelector" onchange="updateSummary()">
+            </div>
+            <!-- 🔼 agregado -->
+        </div>
+
         <div class="legend">
-            <div class="legend-item">
-                <div class="legend-box available"></div>
-                <span>Disponible</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box selected"></div>
-                <span>Seleccionado</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box occupied"></div>
-                <span>Ocupado</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box premium-legend"></div>
-                <span>Premium</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box moto-legend"></div>
-                <span>Motos</span>
-            </div>
+            <div class="legend-item"><div class="legend-box available"></div><span>Disponible</span></div>
+            <div class="legend-item"><div class="legend-box selected"></div><span>Seleccionado</span></div>
+            <div class="legend-item"><div class="legend-box occupied"></div><span>Ocupado</span></div>
+            <div class="legend-item"><div class="legend-box premium-legend"></div><span>Premium</span></div>
+            <div class="legend-item"><div class="legend-box moto-legend"></div><span>Motos</span></div>
         </div>
 
         <div class="garage-container" id="garageLayout">
@@ -92,6 +112,10 @@
                 <div class="summary-item">
                     <h3>Espacios Seleccionados</h3>
                     <p id="selectedCount">0</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Duración</h3>
+                    <p id="durationDisplay">1 Mes</p>
                 </div>
                 <div class="summary-item">
                     <h3>Total</h3>
