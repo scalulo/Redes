@@ -28,28 +28,18 @@ public class Registro_service {
             nuevoCliente.setUsuario(request.getUsuario().trim());
             nuevoCliente.setContrasena(request.getContrasena());
             nuevoCliente.setCodigo_postal(request.getCodigo_postal());
+            nuevoCliente.setMembresia(null); // sin categoría todavía
+
             // Guardar en base de datos
             Cliente clienteGuardado = clienteRepository.save(nuevoCliente);
 
-            // Convertir a DTO
-            ClienteRegistroDTO clienteDTO = convertirAClienteDTO(clienteGuardado);
+            
 
             return new RegisterResponseDTO(true, "Registro exitoso. Ya puedes iniciar sesión", clienteDTO);
 
 
     }
 
-        private ClienteRegistroDTO convertirAClienteDTO (Cliente cliente){
-            ClienteRegistroDTO dto = new ClienteRegistroDTO();
-            dto.setDni(cliente.getDni());
-            dto.setNombre(cliente.getNombre());
-            dto.setApellido(cliente.getApellido());
-            dto.setPais(cliente.getPais());
-            dto.setTelefono(cliente.getTelefono());
-            dto.setDireccion(cliente.getDireccion());
-            dto.setUsuario(cliente.getUsuario());
-            dto.setCodigo_postal(cliente.getCodigo_postal());
-            return dto;
-        }
+       
 
 }

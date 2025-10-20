@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Mi Perfil</h1>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="avatar">👤</div>
+                    <div class="user-info">
+                        <h2></h2>
+                        <p>
+                            
+                            
+                        </p>
+                    </div>
+                </div>
+                <button class="edit-btn" id="edit-toggle">✎ Editar</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="datos-personales">Datos personales</button>
+                <button class="tab" data-tab="metodos-pago">Métodos de pago</button>
+                <button class="tab" data-tab="membresia">Membresía</button>
+            </div>
+
+<!-- TAB: Datos Personales -->
+<div id="datos-personales" class="tab-content active">
+                <div class="form-section">
+                    <h3 class="section-title">Información Personal</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" placeholder="" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" placeholder="" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dni">DNI</label>
+                            <input type="text" id="dni" placeholder="" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="postal">Código Postal</label>
+                            <input type="text" id="postal" placeholder="" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row full">
+                        <div class="form-group">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" id="direccion" placeholder="" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pais">País</label>
+                            <input type="text" id="pais" placeholder="" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" placeholder="" disabled>
+                        </div>
+                    </div>
+
+                    <button class="logout-btn">Cerrar sesión</button>
+                </div>
+            </div>
+
+<!-- TAB: Métodos de Pago -->
+    <div id="metodos-pago" class="tab-content">
+                <div class="form-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Tarjetas guardadas</h3>
+                        <button class="add-btn">+ Agregar nueva tarjeta</button>
+                    </div>
+
+                    <div class="cards-list">
+                        <div class="card-item">
+                            <div class="card-icon">💳</div>
+                            <div class="card-details">
+                                <p class="card-type">Visa ···· 3450</p>
+                                <p class="card-owner">Juan Carlos Rodríguez</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn edit-btn-icon">✎</button>
+                                <button class="action-btn delete-btn-icon">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="card-item">
+                            <div class="card-icon">💳</div>
+                            <div class="card-details">
+                                <p class="card-type">Mastercard ···· 7890</p>
+                                <p class="card-owner">Juan Carlos Rodríguez</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn edit-btn-icon">✎</button>
+                                <button class="action-btn delete-btn-icon">🗑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- TAB: Membresía -->
+    <div id="membresia" class="tab-content">
+    <div class="form-section">
+        
+        <p class="membership-description">Elige el plan que mejor se adapte a tus necesidades</p>
+
+        <div class="membership-cards two-columns">
+            <div class="membership-card">
+                <div class="membership-header">
+                    <h4>Premium</h4>
+                    <p class="price">$19.99<span>/mes</span></p>
+                </div>
+                <ul class="membership-features">
+                    <li>✓ Acceso completo</li>
+                    <li>✓ Hasta 5 usuarios</li>
+                    <li>✓ Soporte prioritario</li>
+                    <li>✓ Reportes avanzados</li>
+                </ul>
+                <button class="membership-btn red">Suscribirse</button>
+            </div>
+
+            <div class="membership-card">
+                <div class="membership-header">
+                    <h4>Empresarial</h4>
+                    <p class="price">$49.99<span>/mes</span></p>
+                </div>
+                <ul class="membership-features">
+                    <li>✓ Acceso ilimitado</li>
+                    <li>✓ Usuarios ilimitados</li>
+                    <li>✓ Soporte 24/7</li>
+                    <li>✓ API personalizada</li>
+                    <li>✓ Gestor de cuenta dedicado</li>
+                </ul>
+                <button class="membership-btn red">Suscribirse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para agregar/editar tarjeta -->
+<div class="modal-overlay" id="cardModal">
+  <div class="modal-card">
+    <h3 id="modal-title">Agregar Tarjeta</h3>
+    <form id="cardForm">
+      <div class="form-group">
+        <label for="card-number">Número de tarjeta</label>
+        <input type="text" id="card-number" maxlength="16" required>
+      </div>
+
+      <div class="form-group">
+        <label for="card-owner">Titular</label>
+        <input type="text" id="card-owner" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="card-expiration">Vencimiento</label>
+          <input type="text" id="card-expiration" placeholder="MM/AA" maxlength="5" required>
+        </div>
+        <div class="form-group">
+          <label for="card-type">Tipo</label>
+          <select id="card-type" required>
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+            <option value="Amex">Amex</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn">Cancelar</button>
+        <button type="submit" class="save-btn">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+        </div>
+    </div>
+
+  <script>
+    // === ELEMENTOS PRINCIPALES ===
+    const editToggle = document.getElementById('edit-toggle');
+    const inputs = document.querySelectorAll('#datos-personales input');
+    const profileName = document.querySelector('.user-info h2');
+    let isEditing = false;
+
+    // === FUNCION PARA ACTUALIZAR NOMBRE EN EL PERFIL ===
+    function actualizarNombre() {
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        profileName.textContent = `${nombre || 'Juan Carlos'} ${apellido || 'Rodríguez'}`;
+    }
+
+    // === TOGGLE DE EDICION ===
+    editToggle.addEventListener('click', function() {
+        isEditing = !isEditing;
+        
+        inputs.forEach(input => input.disabled = !isEditing);
+
+        if (isEditing) {
+            editToggle.textContent = '✓ Guardar';
+            editToggle.style.backgroundColor = '#dc2626';
+            editToggle.style.borderColor = '#b91c1c';
+        } else {
+            editToggle.textContent = '✎ Editar';
+            editToggle.style.backgroundColor = 'transparent';
+            editToggle.style.borderColor = '#666';
+            actualizarNombre(); // Actualiza el nombre cuando se guarda
+        }
+    });
+
+    // === TABS ===
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            this.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            // Mostrar el botón editar solo si estamos en datos personales
+            editToggle.style.display = (tabName === 'datos-personales') ? 'flex' : 'none';
+        });
+    });
+
+    // Inicializamos visibilidad del botón
+    editToggle.style.display = 'flex'; // Datos Personales está activo por defecto
+
+    // === MEMBRESIAS ===
+    document.querySelectorAll('.membership-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const plan = this.closest('.membership-card').querySelector('h4').textContent;
+            alert(`Te has suscrito al plan ${plan}`);
+        });
+    });
+
+    // === TARJETAS: agregar, editar y borrar ===
+    const addBtn = document.querySelector('.add-btn');
+    const cardList = document.querySelector('.cards-list');
+    const cardModal = document.getElementById('cardModal');
+    const cardForm = document.getElementById('cardForm');
+    const modalTitle = document.getElementById('modal-title');
+    let editingCard = null;
+
+    // Abrir modal de nueva tarjeta
+    addBtn.addEventListener('click', () => {
+        editingCard = null;
+        modalTitle.textContent = 'Agregar Tarjeta';
+        cardForm.reset();
+        cardModal.classList.add('active');
+    });
+
+    // Cerrar modal
+    document.querySelector('.cancel-btn').addEventListener('click', () => {
+        cardModal.classList.remove('active');
+    });
+
+    // Guardar tarjeta
+    cardForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const number = document.getElementById('card-number').value;
+        const owner = document.getElementById('card-owner').value;
+        const type = document.getElementById('card-type').value;
+
+        if (editingCard) {
+            editingCard.querySelector('.card-type').textContent = `${type} ···· ${number.slice(-4)}`;
+            editingCard.querySelector('.card-owner').textContent = owner;
+        } else {
+            const newCard = document.createElement('div');
+            newCard.classList.add('card-item');
+            newCard.innerHTML = `
+                <div class="card-icon">💳</div>
+                <div class="card-details">
+                    <p class="card-type">${type} ···· ${number.slice(-4)}</p>
+                    <p class="card-owner">${owner}</p>
+                </div>
+                <div class="card-actions">
+                    <button class="action-btn edit-btn-icon">✎</button>
+                    <button class="action-btn delete-btn-icon">🗑</button>
+                </div>
+            `;
+            cardList.appendChild(newCard);
+        }
+
+        cardModal.classList.remove('active');
+    });
+
+    // Delegación: editar o borrar tarjeta
+    cardList.addEventListener('click', e => {
+        if (e.target.classList.contains('delete-btn-icon')) {
+            e.target.closest('.card-item').remove();
+        }
+
+        if (e.target.classList.contains('edit-btn-icon')) {
+            editingCard = e.target.closest('.card-item');
+            const type = editingCard.querySelector('.card-type').textContent.split(' ')[0];
+            const owner = editingCard.querySelector('.card-owner').textContent;
+
+            document.getElementById('card-type').value = type;
+            document.getElementById('card-owner').value = owner;
+            document.getElementById('card-number').value = '';
+            modalTitle.textContent = 'Editar Tarjeta';
+            cardModal.classList.add('active');
+        }
+    });
+</script>
+
+
+</body>
+</html>

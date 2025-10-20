@@ -29,7 +29,7 @@ public class Login_service {
         if (clienteOpt.isPresent()) {
             Cliente cliente = clienteOpt.get();
             System.out.println("LOGIN EXITOSO para: " + cliente.getUsuario());
-            ClienteRegistroDTO clienteRegistroDTO = convertirAClienteRegistroDTO(cliente);
+           
             return new Respuesta_login_DTO(true, "Inicio de sesión exitoso", clienteRegistroDTO);
         } else {
             System.out.println("LOGIN FALLIDO - No se encontró cliente");
@@ -47,6 +47,8 @@ public class Login_service {
         dto.setDireccion(cliente.getDireccion());
         dto.setUsuario(cliente.getUsuario());
         dto.setPais(cliente.getPais());
+        nuevoCliente.setMembresia(null); // sin categoría todavía
+
 
         return dto;
     }

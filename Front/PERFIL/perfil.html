@@ -18,11 +18,8 @@
                 <div class="profile-info">
                     <div class="avatar">👤</div>
                     <div class="user-info">
-                        <h2>Juan Carlos Rodríguez</h2>
-                        <p>
-                            <span class="flag">🇦🇷</span>
-                            Argentina
-                        </p>
+                        <h2></h2>
+                        <p></p>
                     </div>
                 </div>
                 <button class="edit-btn" id="edit-toggle">✎ Editar</button>
@@ -30,7 +27,6 @@
 
             <div class="tabs">
                 <button class="tab active" data-tab="datos-personales">Datos personales</button>
-                <button class="tab" data-tab="metodos-pago">Métodos de pago</button>
                 <button class="tab" data-tab="membresia">Membresía</button>
             </div>
 
@@ -83,64 +79,13 @@
                 </div>
             </div>
 
-            <!-- TAB: Métodos de Pago -->
-            <div id="metodos-pago" class="tab-content">
-                <div class="form-section">
-                    <div class="section-header">
-                        <h3 class="section-title">Tarjetas guardadas</h3>
-                        <button class="add-btn">+ Agregar nueva tarjeta</button>
-                    </div>
-
-                    <div class="cards-list">
-                        <div class="card-item">
-                            <div class="card-icon">💳</div>
-                            <div class="card-details">
-                                <p class="card-type">Visa ···· 3450</p>
-                                <p class="card-owner">Juan Carlos Rodríguez</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn edit-btn-icon">✎</button>
-                                <button class="action-btn delete-btn-icon">🗑</button>
-                            </div>
-                        </div>
-
-                        <div class="card-item">
-                            <div class="card-icon">💳</div>
-                            <div class="card-details">
-                                <p class="card-type">Mastercard ···· 7890</p>
-                                <p class="card-owner">Juan Carlos Rodríguez</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn edit-btn-icon">✎</button>
-                                <button class="action-btn delete-btn-icon">🗑</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- TAB: Membresía -->
             <div id="membresia" class="tab-content">
                 <div class="form-section">
-                    <h3 class="section-title">Planes de Membresía</h3>
                     <p class="membership-description">Elige el plan que mejor se adapte a tus necesidades</p>
-                    
-                    <div class="membership-cards">
-                        <div class="membership-card">
-                            <div class="membership-header">
-                                <h4>Básico</h4>
-                                <p class="price">$9.99<span>/mes</span></p>
-                            </div>
-                            <ul class="membership-features">
-                                <li>✓ Acceso básico</li>
-                                <li>✓ 1 usuario</li>
-                                <li>✓ Soporte por email</li>
-                            </ul>
-                            <button class="membership-btn">Suscribirse</button>
-                        </div>
 
-                        <div class="membership-card featured">
-                            <div class="featured-badge">Más Popular</div>
+                    <div class="membership-cards two-columns">
+                        <div class="membership-card">
                             <div class="membership-header">
                                 <h4>Premium</h4>
                                 <p class="price">$19.99<span>/mes</span></p>
@@ -151,7 +96,7 @@
                                 <li>✓ Soporte prioritario</li>
                                 <li>✓ Reportes avanzados</li>
                             </ul>
-                            <button class="membership-btn primary">Actualizar</button>
+                            <button class="membership-btn red">Suscribirse</button>
                         </div>
 
                         <div class="membership-card">
@@ -166,55 +111,70 @@
                                 <li>✓ API personalizada</li>
                                 <li>✓ Gestor de cuenta dedicado</li>
                             </ul>
-                            <button class="membership-btn">Suscribirse</button>
+                            <button class="membership-btn red">Suscribirse</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
-    <script>
-        const editToggle = document.getElementById('edit-toggle');
-        const inputs = document.querySelectorAll('#datos-personales input');
-        let isEditing = false;
+<script>
+    const editToggle = document.getElementById('edit-toggle');
+    const inputs = document.querySelectorAll('#datos-personales input');
+    const profileName = document.querySelector('.user-info h2');
+    let isEditing = false;
 
-        editToggle.addEventListener('click', function() {
-            isEditing = !isEditing;
-            
-            inputs.forEach(input => {
-                input.disabled = !isEditing;
-            });
+    function actualizarNombre() {
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        profileName.textContent = `${nombre || 'Juan Carlos'} ${apellido || 'Rodríguez'}`;
+    }
 
-            if (isEditing) {
-                editToggle.textContent = '✓ Guardar';
-                editToggle.style.backgroundColor = '#dc2626';
-                editToggle.style.borderColor = '#b91c1c';
-            } else {
-                editToggle.textContent = '✎ Editar';
-                editToggle.style.backgroundColor = 'transparent';
-                editToggle.style.borderColor = '#666';
-            }
+    editToggle.addEventListener('click', function() {
+        isEditing = !isEditing;
+        inputs.forEach(input => input.disabled = !isEditing);
+
+        if (isEditing) {
+            editToggle.textContent = '✓ Guardar';
+            editToggle.style.backgroundColor = '#dc2626';
+            editToggle.style.borderColor = '#b91c1c';
+        } else {
+            editToggle.textContent = '✎ Editar';
+            editToggle.style.backgroundColor = 'transparent';
+            editToggle.style.borderColor = '#666';
+            actualizarNombre();
+        }
+    });
+
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            this.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            editToggle.style.display = (tabName === 'datos-personales') ? 'flex' : 'none';
         });
+    });
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabName = this.getAttribute('data-tab');
-                
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                
-                this.classList.add('active');
-                document.getElementById(tabName).classList.add('active');
-            });
-        });
+    editToggle.style.display = 'flex';
 
-        document.querySelectorAll('.membership-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const plan = this.closest('.membership-card').querySelector('h4').textContent;
-                alert(`Te has suscrito al plan ${plan}`);
-            });
+    // Membresía
+    document.querySelectorAll('.membership-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const plan = this.closest('.membership-card').querySelector('h4').textContent;
+            alert(`Te has suscrito al plan ${plan}`);
         });
-    </script>
+    });
+</script>
 </body>
 </html>
