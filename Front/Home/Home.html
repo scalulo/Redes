@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Politécnicos y Furiosos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="Home.css">
+
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">P&F</a>
+      <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-3">
+          <li class="nav-item"><a class="nav-link" href="#">Marcas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Garage</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Catálogo</a></li>
+        </ul>
+        <button class="btn btn-outline-light" id="perfilBtn" data-bs-toggle="modal" data-bs-target="#loginModal">
+          Registrarse / Iniciar sesión
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Politécnicos y Furiosos.</h1>
+      <p>Garage inteligente y autos de lujo.</p>
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+          Registrarse / Iniciar sesión
+        </button>
+        <button class="btn btn-secondary" onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">
+          Entrar al Garage
+        </button>
+      </div>
+    </div>
+  </section>
+
+      <!-- ESTACIONAR AUTO -->
+  <section class="container my-5" id="estacionar">
+    <div class="section-title">
+      <h2>Estacionamiento Inteligente</h2>
+      <p>Reserva un espacio premium para tu vehículo</p>
+    </div>
+    <div class="big-card mb-5">
+      <div class="big-card-img"><img class="imagenes_grandes" src="garaje-lujo-4.jpg" alt="garaje"></div>
+      <div class="big-card-body">
+        <h3>Espacios Seguros y Modernos</h3>
+        <p>Accede a nuestro sistema de estacionamiento inteligente con vigilancia 24/7, sensores de movimiento y reconocimiento de matrícula. Cada espacio está diseñado para máxima seguridad y confort.</p>
+        <button class="btn btn-primary w-auto" onclick="window.location.href='garage.html'">Ver Espacios Disponibles</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVAR AUTO -->
+  <section class="container my-5" id="garage">
+    <div class="section-title">
+      <h2>Reservar Auto</h2>
+      <p>Flota exclusiva de vehículos de lujo</p>
+    </div>
+    <div class="big-card">
+      <div class="big-card-img"><img class="imagenes_grandes" src="auto.jpg" alt="auto"></div>
+      <div class="big-card-body">
+        <h3>Experiencia de Conducción Premium</h3>
+        <p>Seleccioná entre Ferrari, Porsche, Aston Martin y más. Cada vehículo está mantenido a la perfección para ofrecerte potencia, estilo y distinción en cada viaje.</p>
+        <button class="btn btn-primary w-auto" onclick="window.location.href='reservar.html'">Explorar Autos</button>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="py-5 container">
+    <div class="text-center mb-5">
+      <h2 class="fw-light">Servicios Premium</h2>
+      <p class="text-secondary">Gestión, mantenimiento y beneficios exclusivos</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card p-4 text-center">
+          <div class="mb-3 display-6">⚙️</div>
+          <h5 class="card-title">Gestión Digital</h5>
+          <p>Gestioná tu auto y reservas desde una plataforma inteligente 24/7.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center">
+          <div class="mb-3 display-6">🚗</div>
+          <h5 class="card-title">Mantenimiento Premium</h5>
+          <p>Acceso a talleres certificados, detailing y personalización de lujo.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4 text-center">
+          <div class="mb-3 display-6">🎟</div>
+          <h5 class="card-title">Beneficios Exclusivos</h5>
+          <p>Eventos, membresías y experiencias únicas para verdaderos amantes del motor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 POLITÉCNICOS Y FURIOSOS. Todos los derechos reservados.
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0 justify-content-center">
+          <h5 class="modal-title" id="loginModalLabel">Bienvenido</h5>
+          <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-secondary mb-4">Elige una opción para continuar</p>
+          <div class="d-flex flex-column gap-3 px-4">
+            <a href="../Iniciar_sesion/Inicio_sesion.html" class="btn btn-primary">Iniciar sesión</a>
+            <a href="../Registrar/Registro.html" class="btn btn-outline-light">Registrarse</a>
+          </div>
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <p class="text-muted small mb-0">© Politécnicos y Furiosos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOTSTRAP JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Mostrar modal automáticamente al cargar
+    window.addEventListener('load', () => {
+      const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+      loginModal.show();
+    });
+
+   const user = JSON.parse(sessionStorage.getItem("cliente")); 
+  const perfilBtn = document.getElementById("perfilBtn");
+  const heroLoginBtn = document.querySelector(".hero .btn.btn-primary"); // botón del hero
+
+  if (user) {
+    // ✅ Usuario logueado → Cambiar botón principal
+    perfilBtn.textContent = `👤 ${user.nombre}`;
+    perfilBtn.classList.add("btn-success");
+    perfilBtn.removeAttribute("data-bs-toggle");
+    perfilBtn.removeAttribute("data-bs-target");
+    perfilBtn.onclick = () => window.location.href = "../Perfil/perfil.html";
+
+    // ✅ Ocultar botón del hero (ya no tiene sentido mostrarlo)
+    if (heroLoginBtn) {
+      heroLoginBtn.style.display = "none";
+    }
+
+  } else {
+    // ❌ Usuario NO logueado → mostrar modal al entrar
+    window.addEventListener("load", () => {
+      const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+      loginModal.show();
+    });
+  }
+  </script>
+</body>
+</html>

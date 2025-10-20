@@ -32,9 +32,8 @@ public class Registro_service {
             Cliente clienteGuardado = clienteRepository.save(nuevoCliente);
 
             // Convertir a DTO
-            ClienteRegistroDTO clienteDTO = convertirAClienteDTO(clienteGuardado);
 
-            return new RegisterResponseDTO(true, "Registro exitoso. Ya puedes iniciar sesión", clienteDTO);
+            return new RegisterResponseDTO(true, "Registro exitoso. Ya puedes iniciar sesión", null);
 
 
     }
