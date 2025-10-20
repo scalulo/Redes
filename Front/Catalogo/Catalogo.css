@@ -13,16 +13,12 @@ body {
 /* Navbar */
 .navbar {
     background-color: #000000;
-    padding: 1.5rem 0;
     border-bottom: 1px solid #1a1a1a;
 }
-
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
+img,svg{
+    width: 110px;
+    height: 110px;
 }
-
 .navbar-nav .nav-link {
     color: #888888;
     margin: 0 1.5rem;
@@ -35,20 +31,17 @@ body {
 
 /* Hero Section */
 .hero-section {
-    padding: 8rem 0 6rem;
     text-align: center;
 }
 
 .hero-title {
     font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 1rem;
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     color: #888888;
-    margin-bottom: 3rem;
 }
 
 .search-bar {
@@ -128,16 +121,19 @@ body {
     transition: transform 0.3s ease;
 }
 .grid-card.img1{
-    background-image: url(/Front/Catalogo/imagenes/Sin\ título\ \(2\).jpeg);
+    background-image: url(/Front/Catalogo/imagenes/Img_Dest_Ferrari_Roma_Spider\ \(1\).jpg);
 }
 .grid-card.img2{
-    background-image: url();
+    background-image: url(/Front/Catalogo/imagenes/ferrari-roma-by-wheelsandmore-1-1594885446\ \(1\)\ \(1\).jpg);
 }
 .grid-card.img3{
-    background-image: url();
+    background-image: url(/Front/Catalogo/imagenes/Ferrari\ Roma\ 2022\ \(1\).jpg);
 }
 .grid-card.img4{
-    background-image: url();
+    background-image: url(/Front/Catalogo/imagenes/45018a30-3984-4925-8405-86c01d54.jpg);
+}
+.featured-card.img-central{
+    background-image: url(/Front/Catalogo/imagenes/NPO154026-ZFF98RNB000282955_E_F1.jpg);
 }
 .grid-card:hover {
     transform: scale(1.05);
@@ -152,28 +148,10 @@ body {
     background-color: #1a1a1a;
     border-radius: 15px;
     padding: 3rem;
+    
+}featured-card.img-central{
+    background-image: url(/Front/Catalogo/imagenes/NPO154026-ZFF98RNB000282955_E_F1.jpg);
 }
-
-.featured-icons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.featured-icons .square-icon,
-.featured-icons .circle-icon,
-.featured-icons .triangle-icon {
-    width: 40px;
-    height: 40px;
-}
-
-.featured-icons .triangle-icon {
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 35px solid #444444;
-}
-
 .featured-label {
     color: #888888;
     font-size: 0.9rem;
