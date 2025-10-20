@@ -594,3 +594,41 @@ footer p {
         height: 60px;
     }
 }
+/* Agregar estos estilos al final del CSS */
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.4s;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.btn-secondary:hover {
+    border-color: #D4AF37;
+    color: #D4AF37;
+    background: rgba(212, 175, 55, 0.05);
+}
+
+/* Mejorar visibilidad de espacios seleccionados */
+.space.selected {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: #D4AF37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.space.selected .space-number {
+    color: #000;
+    font-weight: 700;
+}
+
+.space.selected .space-type {
+    color: #000;
+    font-weight: 600;
+}

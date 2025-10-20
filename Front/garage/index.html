@@ -87,7 +87,6 @@
                     <option value="12h">12 Horas</option>
                 </select>
             </div>
-
             <div class="filter-group" id="timeGroup" style="display: none;">
                 <label>Hora de inicio</label>
                 <input type="time" id="timeSelector" onchange="updateSummary()">
@@ -125,7 +124,19 @@
                     <button class="btn-confirm" onclick="confirmReservation()" id="reserveBtn" disabled>
                         Confirmar Reserva
                     </button>
+                    <button class="btn-secondary" onclick="clearSelection()" id="clearBtn" style="margin-top: 10px; padding: 12px;">
+                        Limpiar Selección
+                    </button>
                 </div>
+                <!-- 
+                <div class="summary-item">
+                    <button class="btn-confirm">
+                        Confirmar Reserva
+                    </button>
+                </div>
+                
+                -->
+                
             </div>
         </div>
     </section>

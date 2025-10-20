@@ -57,7 +57,6 @@ const garageData = [
 let selectedSpaces = [];
 let currentFloor = 0;
 let selectedDate = null;
-let duration = 1; // meses
 
 // Función para cambiar de piso
 function changeFloor() {
@@ -68,33 +67,22 @@ function changeFloor() {
 // Función para cambiar fecha
 function changeDate() {
     selectedDate = document.getElementById('dateSelector').value;
-    // Aquí puedes hacer una llamada al backend para obtener disponibilidad
-    // fetchAvailability(selectedDate, currentFloor);
     console.log('Fecha seleccionada:', selectedDate);
 }
 
-// Función ejemplo para llamar al backend (descomentala y adaptala cuando tengas tu API)
-/*
-async function fetchAvailability(date, floor) {
-    try {
-        const response = await fetch(`/api/availability?date=${date}&floor=${floor}`);
-        const data = await response.json();
-        
-        // Actualizar el estado de ocupación según la respuesta del backend
-        garageData[floor].rows.forEach((row, rowIndex) => {
-            row.forEach((space, spaceIndex) => {
-                // Asumiendo que el backend devuelve un array de números ocupados
-                space.occupied = data.occupiedSpaces.includes(space.num);
-            });
-        });
-        
-        renderGarage();
-    } catch (error) {
-        console.error('Error al obtener disponibilidad:', error);
-        alert('Error al cargar la disponibilidad. Por favor, intenta nuevamente.');
+// Función para mostrar/ocultar selector de hora
+function toggleTimeSelector() {
+    const durationSelector = document.getElementById("durationSelector");
+    const timeGroup = document.getElementById("timeGroup");
+
+    const selectedValue = durationSelector.value;
+    if (selectedValue.endsWith("h")) {
+        timeGroup.style.display = "flex";
+    } else {
+        timeGroup.style.display = "none";
     }
+    updateSummary();
 }
-*/
 
 // Función para renderizar el garage (solo el piso actual)
 function renderGarage() {
@@ -172,72 +160,223 @@ function toggleSpace(num, type) {
         // Si ya está seleccionado, lo removemos
         selectedSpaces.splice(index, 1);
     } else {
-        // Si no está seleccionado, lo agregamos
-        selectedSpaces.push({ num, type });
+        // Si no está seleccionado, lo agregamos con toda la información
+        const spaceInfo = {
+            num: num,
+            type: type,
+            floor: currentFloor,
+            floorName: garageData[currentFloor].floor,
+            price: calculatePrice(type)
+        };
+        selectedSpaces.push(spaceInfo);
     }
 
     updateSummary();
     renderGarage();
 }
 
-// Función para actualizar el resumen
-function updateSummary() {
-    duration = parseInt(document.getElementById('durationSelector').value);
-    const count = selectedSpaces.length;
-    const monthlyTotal = selectedSpaces.reduce((sum, space) => sum + prices[space.type], 0);
-    const total = monthlyTotal * duration;
+// Función para calcular precio
+function calculatePrice(type) {
+    const durationSelector = document.getElementById("durationSelector");
+    const selectedValue = durationSelector.value;
+    
+    // Si es por horas
+    if (selectedValue.endsWith("h")) {
+        switch (selectedValue) {
+            case "1h": 
+                switch(type) {
+                    case 'normal': return 5;
+                    case 'premium': return 10;
+                    case 'moto': return 3;
+                }
+            case "6h": 
+                switch(type) {
+                    case 'normal': return 20;
+                    case 'premium': return 40;
+                    case 'moto': return 12;
+                }
+            case "12h": 
+                switch(type) {
+                    case 'normal': return 35;
+                    case 'premium': return 70;
+                    case 'moto': return 20;
+                }
+        }
+    }
+    
+    // Si es por meses
+    const monthlyPrices = {
+        normal: 1200,
+        premium: 2500,
+        moto: 800
+    };
+    
+    const months = parseInt(selectedValue);
+    return monthlyPrices[type] * months;
+}
 
-    document.getElementById('selectedCount').textContent = count;
-    document.getElementById('durationDisplay').textContent = duration === 1 ? '1 Mes' : `${duration} Meses`;
-    document.getElementById('totalPrice').textContent = `$${total.toLocaleString()}`;
-    document.getElementById('reserveBtn').disabled = count === 0;
+// Función para actualizar el resumen (CORREGIDA)
+function updateSummary() {
+    const durationSelector = document.getElementById("durationSelector");
+    const durationDisplay = document.getElementById("durationDisplay");
+    const totalPrice = document.getElementById("totalPrice");
+    const selectedCount = document.getElementById("selectedCount");
+    
+    const selectedValue = durationSelector.value;
+    let displayText = "";
+    
+    // Actualizar texto de duración
+    if (selectedValue.endsWith("h")) {
+        switch (selectedValue) {
+            case "1h": displayText = "1 Hora"; break;
+            case "6h": displayText = "6 Horas"; break;
+            case "12h": displayText = "12 Horas"; break;
+        }
+    } else {
+        switch (selectedValue) {
+            case "1": displayText = "1 Mes"; break;
+            case "3": displayText = "3 Meses"; break;
+            case "6": displayText = "6 Meses"; break;
+            case "12": displayText = "12 Meses"; break;
+        }
+    }
+    
+    durationDisplay.textContent = displayText;
+    selectedCount.textContent = selectedSpaces.length;
+    
+    // Calcular total
+    const total = selectedSpaces.reduce((sum, space) => sum + space.price, 0);
+    totalPrice.textContent = `$${total}`;
+    
+    // Habilitar/deshabilitar botón SOLO SI EXISTE
+    const reserveBtn = document.getElementById("reserveBtn");
+    if (reserveBtn) {
+        reserveBtn.disabled = selectedSpaces.length === 0;
+    }
+}
+
+// Función para obtener texto de duración
+function getDurationText(durationValue) {
+    const durations = {
+        "1": "1 Mes",
+        "3": "3 Meses", 
+        "6": "6 Meses",
+        "12": "12 Meses",
+        "1h": "1 Hora",
+        "6h": "6 Horas",
+        "12h": "12 Horas"
+    };
+    return durations[durationValue] || durationValue;
 }
 
 // Función para confirmar la reserva
 function confirmReservation() {
-    if (selectedSpaces.length === 0) return;
+    if (selectedSpaces.length === 0) {
+        alert("Por favor selecciona al menos un espacio.");
+        return;
+    }
 
-    const spaceNumbers = selectedSpaces.map(s => s.num).join(', ');
-    const monthlyTotal = selectedSpaces.reduce((sum, space) => sum + prices[space.type], 0);
-    const total = monthlyTotal * duration;
-    const durationText = duration === 1 ? '1 Mes' : `${duration} Meses`;
-
-    // Aquí puedes hacer la llamada al backend para confirmar la reserva
-    /*
-    const reservationData = {
-        spaces: selectedSpaces.map(s => s.num),
-        date: selectedDate,
-        duration: duration,
-        total: total,
-        floor: currentFloor
-    };
+    const date = document.getElementById("dateSelector").value;
+    const durationSelector = document.getElementById("durationSelector");
+    const time = document.getElementById("timeSelector")?.value;
     
-    fetch('/api/reservations', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(reservationData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(`RESERVA CONFIRMADA\n\nID: ${data.id}\nEspacios: ${spaceNumbers}\nDuración: ${durationText}\nFecha inicio: ${selectedDate}\nTotal: $${total.toLocaleString()}\n\nGracias por confiar en RGA Garage Premium`);
+    if (!date) {
+        alert("Por favor selecciona una fecha para la reserva.");
+        return;
+    }
+
+    if (durationSelector.value.endsWith("h") && !time) {
+        alert("Selecciona una hora de inicio para la reserva por horas.");
+        return;
+    }
+
+    // Preparar datos de la reserva para enviar a BD
+    const reservationData = prepareReservationData(date, durationSelector.value, time);
+    
+    // Mostrar resumen y preparar para enviar a BD
+    showReservationSummary(reservationData);
+}
+
+// Función para preparar datos de reserva (PARA TU BASE DE DATOS)
+function prepareReservationData(date, durationValue, time) {
+    const total = selectedSpaces.reduce((sum, space) => sum + space.price, 0);
+    
+    return {
+        // Información de espacios
+        spaces: selectedSpaces.map(space => ({
+            number: space.num,
+            type: space.type,
+            floor: space.floor,
+            price: space.price
+        })),
+        
+        // Información de tiempo
+        date: date,
+        duration: durationValue,
+        startTime: time,
+        
+        // Información financiera
+        total: total,
+        currency: "USD",
+        
+        // Metadatos
+        reservationDate: new Date().toISOString(),
+        status: "pending",
+        
+        // Información del cliente (aquí puedes agregar más campos)
+        clientInfo: {
+            name: "",
+            email: "",
+            phone: ""
+        }
+    };
+}
+
+// Función para mostrar resumen detallado
+function showReservationSummary(reservation) {
+    const spaceNumbers = reservation.spaces.map(s => s.number).join(', ');
+    const spaceTypes = [...new Set(reservation.spaces.map(s => {
+        const types = {
+            'normal': 'Standard',
+            'premium': 'Premium', 
+            'moto': 'Moto'
+        };
+        return types[s.type];
+    }))].join(', ');
+    
+    let message = `🚗 RESUMEN DE RESERVA 🚗\n\n`;
+    message += `📍 Espacios: ${spaceNumbers}\n`;
+    message += `🏷️ Tipo: ${spaceTypes}\n`;
+    message += `📅 Fecha: ${reservation.date}\n`;
+    message += `⏰ Duración: ${getDurationText(reservation.duration)}\n`;
+    
+    if (reservation.startTime) {
+        message += `🕐 Hora inicio: ${reservation.startTime}\n`;
+    }
+    
+    message += `💰 Total: $${reservation.total}\n\n`;
+    message += `¿Confirmar reserva?`;
+
+    if (confirm(message)) {
+        sendToDatabase(reservation);
+    }
+}
+
+// ⚠️ FUNCIÓN PARA QUE TÚ IMPLEMENTES LA CONEXIÓN A BD
+function sendToDatabase(reservationData) {
+    // Por ahora simulamos éxito
+    setTimeout(() => {
+        alert(`✅ RESERVA PREPARADA PARA BD\n\nDatos listos para enviar:\n- ${reservationData.spaces.length} espacios\n- Total: $${reservationData.total}\n\nRevisa la consola para ver el objeto completo.`);
+        
+        console.log('📦 DATOS PARA ENVIAR A BD:', reservationData);
         
         // Limpiar selección
-        selectedSpaces = [];
-        updateSummary();
-        renderGarage();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error al procesar la reserva. Por favor, intenta nuevamente.');
-    });
-    */
+        clearSelection();
+    }, 500);
+}
 
-    // Por ahora mostramos un alert simple
-    alert(`RESERVA CONFIRMADA\n\nEspacios: ${spaceNumbers}\nDuración: ${durationText}\nFecha inicio: ${selectedDate || 'No seleccionada'}\nTotal: $${total.toLocaleString()}\n\nGracias por confiar en RGA Garage Premium`);
-
-    // Limpiar selección
+// Función para limpiar selección
+function clearSelection() {
     selectedSpaces = [];
     updateSummary();
     renderGarage();
@@ -251,72 +390,11 @@ function initializePage() {
     document.getElementById('dateSelector').min = today;
     selectedDate = today;
     
+    // Inicializar selector de hora
+    toggleTimeSelector();
+    
     renderGarage();
 }
 
+// Inicializar cuando se carga la página
 initializePage();
-
-// =======================
-// NUEVAS FUNCIONES (no afectan el mapa)
-// =======================
-
-function toggleTimeSelector() {
-    const durationSelector = document.getElementById("durationSelector");
-    const timeGroup = document.getElementById("timeGroup");
-
-    const selectedValue = durationSelector.value;
-    if (selectedValue.endsWith("h")) {
-        timeGroup.style.display = "flex";
-    } else {
-        timeGroup.style.display = "none";
-    }
-}
-
-function updateSummary() {
-    const durationSelector = document.getElementById("durationSelector");
-    const durationDisplay = document.getElementById("durationDisplay");
-    const totalPrice = document.getElementById("totalPrice");
-    const selectedValue = durationSelector.value;
-
-    let displayText = "";
-    let price = 0;
-
-    if (selectedValue.endsWith("h")) {
-        switch (selectedValue) {
-            case "1h": displayText = "1 Hora"; price = 10; break;
-            case "6h": displayText = "6 Horas"; price = 40; break;
-            case "12h": displayText = "12 Horas"; price = 70; break;
-        }
-    } else {
-        switch (selectedValue) {
-            case "1": displayText = "1 Mes"; price = 300; break;
-            case "3": displayText = "3 Meses"; price = 850; break;
-            case "6": displayText = "6 Meses"; price = 1600; break;
-            case "12": displayText = "12 Meses"; price = 3000; break;
-        }
-    }
-
-    durationDisplay.textContent = displayText;
-    totalPrice.textContent = `$${price}`;
-}
-
-function confirmReservation() {
-    const date = document.getElementById("dateSelector")?.value;
-    const duration = document.getElementById("durationSelector")?.value;
-    const time = document.getElementById("timeSelector")?.value;
-
-    if (!date) {
-        alert("Por favor selecciona una fecha para la reserva.");
-        return;
-    }
-
-    if (duration.endsWith("h") && !time) {
-        alert("Selecciona una hora de inicio para la reserva por horas.");
-        return;
-    }
-
-    let mensaje = `Reserva confirmada para el ${date}`;
-    if (duration.endsWith("h")) mensaje += ` a las ${time}`;
-    alert(mensaje);
-}
-
