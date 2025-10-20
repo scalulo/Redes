@@ -23,6 +23,8 @@ public class Auto {
     private String descripcion;
     private String imagen1;
     private String imagen2;
+    private String imagen3;
+    private String imagen4;
 
     @OneToMany(mappedBy = "auto", cascade = CascadeType.ALL)
     private List<Reserva> reservas;
@@ -115,6 +117,20 @@ public class Auto {
 
     public void setImagen2(String imagen2) {
         this.imagen2 = imagen2;
+    }
+    public String getImagen3() {
+        return imagen3;
+    }
+
+    public void setImagen3(String imagen3) {
+        this.imagen3 = imagen3;
+    }
+    public String getImagen4() {
+        return imagen4;
+    }
+
+    public void setImagen4(String imagen4) {
+        this.imagen4 = imagen4;
     }
 
     public List<Reserva> getReservas() {
