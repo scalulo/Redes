@@ -11,7 +11,7 @@ public class Cliente {
 
     private String nombre;
     private String apellido;
-    private int codigo_postal;
+    private String codigo_postal;
     private String telefono;
     private String dni;
     private String direccion;
@@ -49,11 +49,11 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public int getCodigo_postal() {
+    public String getCodigo_postal() {
         return codigo_postal;
     }
 
-    public void setCodigo_postal(int email) {
+    public void setCodigo_postal(String email) {
         this.codigo_postal = email;
     }
 

@@ -15,7 +15,7 @@
         <div class="cards">
             <a class="login">Registro</a>
             
-           <form id="loginForm" style="gap: 35px;">
+           <form id="registroForm" style="gap: 35px;">
                <div class="inputs"> 
 
                 <div class="inputBox_">
@@ -36,9 +36,15 @@
                 </div>
                 
                 <div class="inputBox">
+                    <input type="number" id="telefono" required>
+                    <span class="user">Telefono</span>
+                </div>
+
+                <div class="inputBox">
                     <input type="email" id="usuario" required>
                     <span class="user">Mail</span>
                 </div>
+        
 
                 <div class="inputBox">
                     <input type="password" id="contrasena" required>
@@ -91,12 +97,12 @@
                     </div>
 
                     <div>
-                    <input type="number" id="c_postal" required>
+                    <input type="number" id="codigo_postal" required>
                     <span class="user">CP code</span>
                 </div>
                 </div>
 
-                <button type="submit" id="btnLogin" class="enter">
+                <button type="submit" id="btnRegistro" class="enter">
                     <span id="btnText">Enter</span>
                     <span id="btnLoading" class="loading" style="display: none;"></span>
                 </button>
@@ -108,6 +114,14 @@
 
 
 <script>
+   const API_URL = 'http://localhost:8081/api/auth/register';
+
+    const registroForm = document.getElementById('registroForm');
+    const btnRegistro = document.getElementById('btnRegistro');
+    const btnText = document.getElementById('btnText');
+    const btnLoading = document.getElementById('btnLoading');
+    const alertContainer = document.getElementById('alertContainer');
+
     // Manejar selección de país
     document.querySelectorAll('.country-dropdown input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', function() {
@@ -115,8 +129,96 @@
             const input = selector.querySelector('input[type="text"]');
             input.value = this.value;
             selector.classList.add('has-value');
-            input.blur(); // Cierra el dropdown
+            input.blur();
         });
+    });
+
+    // Manejar envío del formulario
+    registroForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const dni = document.getElementById('dni').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const usuario = document.getElementById('usuario').value.trim();
+        const contrasena = document.getElementById('contrasena').value.trim();
+        const pais = document.getElementById('pais').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const codigo_postal = document.getElementById('codigo_postal').value.trim();
+
+        if (!nombre || !apellido || !dni || !telefono || !usuario || !contrasena || !pais || !direccion || !codigo_postal) {
+            mostrarAlerta('Por favor complete todos los campos', 'warning');
+            return;
+        }
+
+        // Mostrar loading
+        btnRegistro.disabled = true;
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline-block';
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    apellido: apellido,
+                    dni: dni,
+                    telefono: telefono,
+                    usuario: usuario,
+                    contrasena: contrasena,
+                    pais: pais,
+                    direccion: direccion,
+                    codigo_postal: codigo_postal
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                mostrarAlerta('¡Registro exitoso!', 'success');
+                
+                // Redirigir al login después de 1.5 segundos
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            } else {
+                mostrarAlerta(data.mensaje || 'Error en el registro', 'danger');
+                resetButton();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            mostrarAlerta('Error al conectar con el servidor. Verifique que el backend esté ejecutándose.', 'danger');
+            resetButton();
+        }
+    });
+
+    function resetButton() {
+        btnRegistro.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+    }
+
+    function mostrarAlerta(mensaje, tipo) {
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${tipo} alert-dismissible fade show`;
+        alert.innerHTML = `
+            ${mensaje}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        alertContainer.appendChild(alert);
+
+        setTimeout(() => {
+            alert.remove();
+        }, 4000);
+    }
+
+    window.addEventListener('load', () => {
+        alertContainer.innerHTML = '';
     });
 </script>
 

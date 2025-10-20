@@ -3,7 +3,7 @@ package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login;
 public class ClienteRegistroDTO {
     private String nombre;
     private String apellido;
-    private int codigo_postal;
+    private String codigo_postal;
     private String telefono;
     private String dni;
     private String direccion;
@@ -19,11 +19,11 @@ public class ClienteRegistroDTO {
     public String getApellido() { return apellido; }
     public void setApellido(String apellido) { this.apellido = apellido; }
 
-    public int getCodigo_postal() {
+    public String getCodigo_postal() {
         return codigo_postal;
     }
 
-    public void setCodigo_postal(int codigo_postal) {
+    public void setCodigo_postal(String codigo_postal) {
         this.codigo_postal = codigo_postal;
     }
 
