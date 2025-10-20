@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.43, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: tpIntegrador
+-- Host: localhost    Database: tpIntegrador
 -- ------------------------------------------------------
 -- Server version	8.0.43-0ubuntu0.24.04.2
 
@@ -38,6 +38,15 @@ CREATE TABLE `auto` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `auto`
+--
+
+LOCK TABLES `auto` WRITE;
+/*!40000 ALTER TABLE `auto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cliente`
 --
 
@@ -62,6 +71,71 @@ CREATE TABLE `cliente` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `garages`
+--
+
+DROP TABLE IF EXISTS `garages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `garages` (
+  `id_garage` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `ubicacion` varchar(150) DEFAULT NULL,
+  `cantidad_lugares` int DEFAULT NULL,
+  `pisos` int DEFAULT '1',
+  PRIMARY KEY (`id_garage`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `garages`
+--
+
+LOCK TABLES `garages` WRITE;
+/*!40000 ALTER TABLE `garages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `garages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lugares`
+--
+
+DROP TABLE IF EXISTS `lugares`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lugares` (
+  `id_lugar` int NOT NULL AUTO_INCREMENT,
+  `id_garage` int NOT NULL,
+  `numero_lugar` int NOT NULL,
+  `tipo` enum('auto','moto','premium') DEFAULT 'auto',
+  `piso` int DEFAULT '1',
+  `estado` enum('disponible','ocupado','reservado','inactivo') DEFAULT 'disponible',
+  `precio` int DEFAULT NULL,
+  PRIMARY KEY (`id_lugar`),
+  KEY `id_garage` (`id_garage`),
+  CONSTRAINT `lugares_ibfk_1` FOREIGN KEY (`id_garage`) REFERENCES `garages` (`id_garage`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lugares`
+--
+
+LOCK TABLES `lugares` WRITE;
+/*!40000 ALTER TABLE `lugares` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lugares` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pago`
 --
 
@@ -80,6 +154,15 @@ CREATE TABLE `pago` (
   CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reserva` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pago`
+--
+
+LOCK TABLES `pago` WRITE;
+/*!40000 ALTER TABLE `pago` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pago` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `resenia`
@@ -103,6 +186,15 @@ CREATE TABLE `resenia` (
   CONSTRAINT `resenia_chk_1` CHECK ((`calificacion` between 1 and 5))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resenia`
+--
+
+LOCK TABLES `resenia` WRITE;
+/*!40000 ALTER TABLE `resenia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `resenia` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `reserva`
@@ -129,6 +221,48 @@ CREATE TABLE `reserva` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `reserva`
+--
+
+LOCK TABLES `reserva` WRITE;
+/*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservasGaraje`
+--
+
+DROP TABLE IF EXISTS `reservasGaraje`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reservasGaraje` (
+  `id_reserva` int NOT NULL AUTO_INCREMENT,
+  `id_cliente` int NOT NULL,
+  `id_lugar` int NOT NULL,
+  `fecha_reserva` datetime DEFAULT CURRENT_TIMESTAMP,
+  `fecha_inicio` datetime NOT NULL,
+  `fecha_fin` datetime NOT NULL,
+  `duracion` int GENERATED ALWAYS AS (timestampdiff(HOUR,`fecha_inicio`,`fecha_fin`)) STORED,
+  `estado` enum('pendiente','activa','finalizada','cancelada') DEFAULT 'pendiente',
+  PRIMARY KEY (`id_reserva`),
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_lugar` (`id_lugar`),
+  CONSTRAINT `reservasGaraje_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`),
+  CONSTRAINT `reservasGaraje_ibfk_2` FOREIGN KEY (`id_lugar`) REFERENCES `lugares` (`id_lugar`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservasGaraje`
+--
+
+LOCK TABLES `reservasGaraje` WRITE;
+/*!40000 ALTER TABLE `reservasGaraje` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservasGaraje` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sucursal`
 --
 
@@ -144,6 +278,15 @@ CREATE TABLE `sucursal` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sucursal`
+--
+
+LOCK TABLES `sucursal` WRITE;
+/*!40000 ALTER TABLE `sucursal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sucursal` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -154,4 +297,4 @@ CREATE TABLE `sucursal` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-13 12:07:04
+-- Dump completed on 2025-10-20  9:03:28
