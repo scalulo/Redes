@@ -20,36 +20,18 @@ public class Login_service {
         String usuarioRecibido = request.getUsuario();
         String contrasenaRecibida = request.getcontrasena();
 
-
-
-
         Optional<Cliente> clienteOpt = clienteRepository
                 .findByUsuarioAndContrasena(usuarioRecibido, contrasenaRecibida);
 
         if (clienteOpt.isPresent()) {
             Cliente cliente = clienteOpt.get();
             System.out.println("LOGIN EXITOSO para: " + cliente.getUsuario());
-           
-            return new Respuesta_login_DTO(true, "Inicio de sesión exitoso", clienteRegistroDTO);
+
+            return new Respuesta_login_DTO(true, "Inicio de sesión exitoso", null);
         } else {
-            System.out.println("LOGIN FALLIDO - No se encontró cliente");
             return new Respuesta_login_DTO(false, "Usuario o contraseña incorrectos", null);
         }
     }
 
-    private ClienteRegistroDTO convertirAClienteRegistroDTO(Cliente cliente) {
-        ClienteRegistroDTO dto = new ClienteRegistroDTO();
-        dto.setNombre(cliente.getNombre());
-        dto.setApellido(cliente.getApellido());
-        dto.setCodigo_postal(cliente.getCodigo_postal());
-        dto.setTelefono(cliente.getTelefono());
-        dto.setDni(cliente.getDni());
-        dto.setDireccion(cliente.getDireccion());
-        dto.setUsuario(cliente.getUsuario());
-        dto.setPais(cliente.getPais());
-        nuevoCliente.setMembresia(null); // sin categoría todavía
 
-
-        return dto;
-    }
 }

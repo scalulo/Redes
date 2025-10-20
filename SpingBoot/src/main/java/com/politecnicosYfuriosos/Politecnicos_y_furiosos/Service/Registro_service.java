@@ -33,9 +33,8 @@ public class Registro_service {
             // Guardar en base de datos
             Cliente clienteGuardado = clienteRepository.save(nuevoCliente);
 
-            
 
-            return new RegisterResponseDTO(true, "Registro exitoso. Ya puedes iniciar sesión", clienteDTO);
+            return new RegisterResponseDTO(true, "Registro exitoso. Ya puedes iniciar sesión", null);
 
 
     }
