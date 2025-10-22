@@ -1,7 +1,7 @@
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Controller;
 
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.ClienteRegistroDTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.Login_DTO;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.Respuesta_login_DTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Service.Login_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ public class Login_controller {
     private Login_service Login_service;
 
     @PostMapping("/login")
-    public ResponseEntity<Respuesta_login_DTO> login(@RequestBody Login_DTO request) {
-        Respuesta_login_DTO response = Login_service.login(request);
+    public ResponseEntity<ClienteRegistroDTO> login(@RequestBody Login_DTO request) {
+        ClienteRegistroDTO cliente = Login_service.login(request);
 
-        if (response.isSuccess()) {
-            return ResponseEntity.ok(response);
+        if (cliente != null) {
+            return ResponseEntity.ok(cliente);
         } else {
-            return ResponseEntity.status(401).body(response);
+            return ResponseEntity.status(401).body(null);
         }
     }
 }

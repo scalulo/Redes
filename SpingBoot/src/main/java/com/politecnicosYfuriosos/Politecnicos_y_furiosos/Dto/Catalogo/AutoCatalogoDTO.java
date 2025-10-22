@@ -1,3 +1,4 @@
+/**
 package com.rda.concesionaria.dto;
 
 import com.rda.concesionaria.entity.Auto;
@@ -8,10 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-/**
- * DTO simplificado para el catálogo principal
- * Solo incluye la información esencial para mostrar en las tarjetas
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,3 +38,4 @@ public class AutoCatalogoDTO {
                 .build();
     }
 }
+ **/

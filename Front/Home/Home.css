@@ -64,59 +64,7 @@ p {
   color: #000;
 }
 
-/* ======== HERO ======== */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
-}
 
-.hero h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.hero p {
-  color: #999;
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.hero .btn {
-  border-radius: 30px;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
-.btn-primary {
-  background: #D4AF37;
-  border: none;
-  color: #000;
-  transition: 0.3s;
-}
-
-.btn-primary:hover {
-  background: #fff;
-  color: #000;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
-  transition: 0.3s;
-}
-
-.btn-secondary:hover {
-  border-color: #D4AF37;
-  color: #D4AF37;
-}
 
 /* ======== SECCIONES GRANDES ======== */
 .section-title {
@@ -262,6 +210,15 @@ footer {
     font-size: 2.5rem;
   }
 }
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        flex-direction: row;
+        margin-left: 10em;
+    }
+}
     body {
       background-color: #000;
       color: #fff;
@@ -300,8 +257,9 @@ footer {
     }
 
     .btn-outline-light:hover {
-      background-color: #D4AF37;
-      color: #000;
+      background-color: #5c4a11;
+      color: #D4AF37;
+      border-color: #96750b;
     }
 
     /* Hero */
@@ -327,6 +285,10 @@ footer {
       margin-bottom: 2rem;
     }
 
+    .btn{
+      background-color: #211e08;
+    }
+
     .hero .btn {
       border-radius: 30px;
       text-transform: uppercase;
@@ -335,13 +297,14 @@ footer {
     }
 
     .btn-primary {
-      background: #D4AF37;
+      background: #af8c19;
       border: none;
       color: #000;
     }
 
     .btn-primary:hover {
-      background: #fff;
+      background: #796111;
+      transition: 0.5s;
     }
 
     .btn-secondary {
@@ -351,9 +314,12 @@ footer {
     }
 
     .btn-secondary:hover {
-      border-color: #D4AF37;
-      color: #D4AF37;
+      border-color: #746535;
+      color: #ffffff;
+      background-color: #5c4a11;
     }
+
+    
 
     /* Cards */
     .card {
@@ -404,7 +370,10 @@ footer {
       filter: invert(1);
     }
 
-    #perfilBtn{
-
-        width: 5em;
-    }
+    .btn-success{
+      --bs-btn-bg:black !important; 
+     --bs-btn-border-color:black !important; 
+      --bs-btn-hover-bg:#796111 !important;
+      --bs-btn-hover-border-color:black !important;
+      --bs-btn-display:flex;
+      }

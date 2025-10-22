@@ -14,7 +14,7 @@ public class ReservaGaraje {
 
     // RELACIÓN ACTUALIZADA: Cambiar de Integer idCliente a Entity Cliente
     @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "dni", nullable = false)
     private Cliente cliente;
 
     @ManyToOne

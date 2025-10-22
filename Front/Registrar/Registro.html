@@ -180,10 +180,21 @@
 
             if (data.success) {
                 mostrarAlerta('¡Registro exitoso!', 'success');
-                
+
+                    sessionStorage.setItem("cliente", JSON.stringify({
+                    nombre: nombre,
+                    apellido: apellido,
+                    dni: dni,
+                    telefono: telefono,
+                    usuario: usuario,
+                    pais: pais,
+                    direccion: direccion,
+                    codigo_postal: codigo_postal
+                }));
+
                 // Redirigir al login después de 1.5 segundos
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = '../Home/Home.html';
                 }, 1500);
             } else {
                 mostrarAlerta(data.mensaje || 'Error en el registro', 'danger');

@@ -18,7 +18,7 @@ public class Cliente {
     private String usuario;
     private String contrasena;
     private String pais;
-    private Membresia membresia;
+    private MembershipPlan membresia;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Reserva> reservas;
@@ -122,10 +122,10 @@ public class Cliente {
         this.resenias = resenias;
     }
 
-    public void setMembresia(Membresia membresia){
+    public void setMembresia(MembershipPlan membresia){
         this.membresia=membresia;
     }
-    public Membresia getMembresia(){
+    public MembershipPlan getMembresia(){
         return membresia;
     }
 }

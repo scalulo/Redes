@@ -1,5 +1,9 @@
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login;
 
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.Cliente;
+
+import java.util.Optional;
+
 public class Respuesta_login_DTO {
 
     private boolean success;
@@ -13,6 +17,9 @@ public class Respuesta_login_DTO {
         this.success = success;
         this.mensaje = mensaje;
         this.cliente = cliente;
+    }
+
+    public Respuesta_login_DTO(boolean success, String inicioDeSesiónExitoso, Optional<Cliente> clienteOpt) {
     }
 
     // Getters y Setters

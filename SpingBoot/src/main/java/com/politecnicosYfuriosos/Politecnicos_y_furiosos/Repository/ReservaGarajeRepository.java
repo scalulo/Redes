@@ -1,3 +1,4 @@
+/*
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository;
 
 
@@ -10,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface ReservaGarajeRepository extends JpaRepository<ReservaGaraje, Integer> {
-    List<ReservaGaraje> findByClienteId(Integer clienteId);
-}
+    List<ReservaGaraje> findByClienteId(Integer dni);
+}*/

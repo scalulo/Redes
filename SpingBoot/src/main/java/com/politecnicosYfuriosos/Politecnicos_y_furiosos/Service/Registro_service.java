@@ -5,6 +5,7 @@ package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Service;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login.ClienteRegistroDTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Register.RegisterResponseDTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.Cliente;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.MembershipPlan;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class Registro_service {
             nuevoCliente.setUsuario(request.getUsuario().trim());
             nuevoCliente.setContrasena(request.getContrasena());
             nuevoCliente.setCodigo_postal(request.getCodigo_postal());
-            nuevoCliente.setMembresia(null); // sin categoría todavía
+            nuevoCliente.setMembresia(MembershipPlan.NULL); // sin categoría todavía
 
             // Guardar en base de datos
             Cliente clienteGuardado = clienteRepository.save(nuevoCliente);

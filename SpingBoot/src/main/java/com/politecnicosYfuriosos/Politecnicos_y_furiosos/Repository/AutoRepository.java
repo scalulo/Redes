@@ -1,3 +1,4 @@
+/**
 package com.rda.concesionaria.repository;
 
 import com.rda.concesionaria.entity.Auto;
@@ -40,3 +41,4 @@ public interface AutoRepository extends JpaRepository<Auto, Integer> {
     @Query("SELECT a FROM Auto a ORDER BY a.anio DESC, a.id DESC LIMIT 1")
     Auto findUltimoLanzamiento();
 }
+ **/

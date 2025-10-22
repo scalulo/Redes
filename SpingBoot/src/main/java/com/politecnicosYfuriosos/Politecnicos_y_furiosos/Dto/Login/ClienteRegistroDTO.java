@@ -1,5 +1,7 @@
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Login;
 
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.MembershipPlan;
+
 public class ClienteRegistroDTO {
     private String nombre;
     private String apellido;
@@ -10,6 +12,10 @@ public class ClienteRegistroDTO {
     private String usuario;
     private String contrasena;
     private String pais;
+    private MembershipPlan membresia;
+
+
+
 
     public ClienteRegistroDTO() {}
 
@@ -45,4 +51,12 @@ public class ClienteRegistroDTO {
     public void setUsuario(String usuario) { this.usuario = usuario; }
     public String getContrasena() { return contrasena; }
     public void setContrasena(String contrasena) { this.contrasena = contrasena; }
+    public MembershipPlan getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(MembershipPlan membresia) {
+        this.membresia = membresia;
+    }
+
 }

@@ -1,8 +1,9 @@
+/**
 package com.rda.concesionaria.service;
 
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.Auto;
 import com.rda.concesionaria.dto.AutoCatalogoDTO;
 import com.rda.concesionaria.dto.AutoDTO;
-import com.rda.concesionaria.entity.Auto;
 import com.rda.concesionaria.repository.AutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 public class AutoService {
     
     private final AutoRepository autoRepository;
-    
-    /**
-     * Obtener todos los autos para el catálogo
-     */
+
+    public AutoService(AutoRepository autoRepository) {
+        this.autoRepository = autoRepository;
+    }
+
+
     public List<AutoCatalogoDTO> obtenerTodosParaCatalogo() {
         return autoRepository.findAll()
                 .stream()
@@ -28,13 +31,11 @@ public class AutoService {
                 .collect(Collectors.toList());
     }
     
-    /**
-     * Filtrar autos por tipo
-     */
+
     public List<AutoCatalogoDTO> filtrarPorTipo(String tipo) {
         try {
             Auto.TipoAuto tipoAuto = Auto.TipoAuto.valueOf(tipo.toUpperCase());
-            return autoRepository.findByTipo(tipoAuto)
+            return autoRepository.findByTipo(TipoAuto)
                     .stream()
                     .map(AutoCatalogoDTO::fromEntity)
                     .collect(Collectors.toList());
@@ -43,9 +44,7 @@ public class AutoService {
         }
     }
     
-    /**
-     * Filtrar autos por disponibilidad
-     */
+
     public List<AutoCatalogoDTO> filtrarPorDisponibilidad(Boolean disponible) {
         return autoRepository.findByDisponible(disponible)
                 .stream()
@@ -53,9 +52,7 @@ public class AutoService {
                 .collect(Collectors.toList());
     }
     
-    /**
-     * Filtrar autos por tipo y disponibilidad
-     */
+
     public List<AutoCatalogoDTO> filtrarPorTipoYDisponibilidad(String tipo, Boolean disponible) {
         try {
             Auto.TipoAuto tipoAuto = Auto.TipoAuto.valueOf(tipo.toUpperCase());
@@ -68,9 +65,7 @@ public class AutoService {
         }
     }
     
-    /**
-     * Buscar autos por marca o modelo
-     */
+
     public List<AutoCatalogoDTO> buscarPorMarcaOModelo(String search) {
         if (search == null || search.trim().isEmpty()) {
             return obtenerTodosParaCatalogo();
@@ -82,18 +77,14 @@ public class AutoService {
                 .collect(Collectors.toList());
     }
     
-    /**
-     * Obtener detalle completo de un auto por ID
-     */
+
     public AutoDTO obtenerDetallePorId(Integer id) {
         Auto auto = autoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Auto no encontrado con ID: " + id));
         return AutoDTO.fromEntity(auto);
     }
     
-    /**
-     * Obtener autos destacados para la grilla
-     */
+
     public List<AutoDTO> obtenerDestacados(int limit) {
         return autoRepository.findDestacados()
                 .stream()
@@ -102,9 +93,7 @@ public class AutoService {
                 .collect(Collectors.toList());
     }
     
-    /**
-     * Obtener el último lanzamiento (para la sección featured)
-     */
+
     public AutoDTO obtenerUltimoLanzamiento() {
         Auto auto = autoRepository.findUltimoLanzamiento();
         if (auto == null) {
@@ -113,9 +102,7 @@ public class AutoService {
         return AutoDTO.fromEntity(auto);
     }
     
-    /**
-     * Crear nuevo auto
-     */
+
     @Transactional
     public AutoDTO crearAuto(AutoDTO autoDTO) {
         Auto auto = new Auto();
@@ -124,9 +111,7 @@ public class AutoService {
         return AutoDTO.fromEntity(autoGuardado);
     }
     
-    /**
-     * Actualizar auto existente
-     */
+
     @Transactional
     public AutoDTO actualizarAuto(Integer id, AutoDTO autoDTO) {
         Auto auto = autoRepository.findById(id)
@@ -136,9 +121,7 @@ public class AutoService {
         return AutoDTO.fromEntity(autoActualizado);
     }
     
-    /**
-     * Eliminar auto
-     */
+
     @Transactional
     public void eliminarAuto(Integer id) {
         if (!autoRepository.existsById(id)) {
@@ -147,9 +130,7 @@ public class AutoService {
         autoRepository.deleteById(id);
     }
     
-    /**
-     * Método auxiliar para actualizar la entidad desde el DTO
-     */
+
     private void actualizarEntidadDesdeDTO(Auto auto, AutoDTO dto) {
         auto.setMarca(dto.getMarca());
         auto.setModelo(dto.getModelo());
@@ -164,3 +145,4 @@ public class AutoService {
         auto.setImagen4(dto.getImagen4());
     }
 }
+ **/
