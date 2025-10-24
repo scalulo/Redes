@@ -25,12 +25,7 @@ p {
   background: rgba(0, 0, 0, 0.9);
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
   backdrop-filter: blur(8px);
-}
-
-.navbar-brand {
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #D4AF37 !important;
+  --bs-navbar-padding-y:0em
 }
 
 .nav-link {
@@ -226,41 +221,7 @@ footer {
       overflow-x: hidden;
     }
 
-    /* Navbar */
-    .navbar {
-      background: rgba(0, 0, 0, 0.9);
-      border-bottom: 1px solid rgba(212,175,55,0.2);
-      backdrop-filter: blur(8px);
-    }
-
-    .navbar-brand {
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #D4AF37 !important;
-    }
-
-    .nav-link {
-      color: #ccc !important;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-    }
-
-    .nav-link:hover {
-      color: #fff !important;
-    }
-
-    .btn-outline-light {
-      border-radius: 30px;
-      border-color: #D4AF37;
-      color: #D4AF37;
-    }
-
-    .btn-outline-light:hover {
-      background-color: #5c4a11;
-      color: #D4AF37;
-      border-color: #96750b;
-    }
+   
 
     /* Hero */
     .hero {
@@ -370,10 +331,63 @@ footer {
       filter: invert(1);
     }
 
+    /**boton perfil**/
     .btn-success{
       --bs-btn-bg:black !important; 
      --bs-btn-border-color:black !important; 
       --bs-btn-hover-bg:#796111 !important;
       --bs-btn-hover-border-color:black !important;
       --bs-btn-display:flex;
-      }
+      --bs-btn-active-bg: #382e0b  !important; 
+           }
+
+
+/**footer**/
+
+
+   .footer-premium {
+      background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      color: #999;
+      padding: 60px 0 20px;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h4 {
+      color: #D4AF37;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section ul li a {
+      color: #999;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .footer-section ul li a:hover {
+      color: #D4AF37;
+      transform: translateX(5px);
+    }
