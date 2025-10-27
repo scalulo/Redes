@@ -4,6 +4,20 @@ const prices = {
     premium: 2500,
     moto: 800
 };
+const user = JSON.parse(sessionStorage.getItem("cliente")); 
+    const perfilBtn = document.getElementById("perfilBtn");
+
+    if(user){
+      // ✅ Usuario logueado → Mostrar nombre y apellido (sin emoji)
+          perfilBtn.textContent = `${user.nombre} ${user.apellido}`;
+      perfilBtn.classList.remove("btn-outline-light");
+      perfilBtn.classList.add("btn-success");
+      perfilBtn.style.whiteSpace = "nowrap";
+      perfilBtn.removeAttribute("data-bs-toggle");
+      perfilBtn.removeAttribute("data-bs-target");
+      perfilBtn.onclick = () => window.location.href = "../Perfil/perfil.html";
+    }
+
 
 // Variables de estado
 let selectedSpaces = [];

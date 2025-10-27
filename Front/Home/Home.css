@@ -333,7 +333,6 @@ footer {
 
     /**boton perfil**/
     .btn-success{
-      --bs-btn-bg:black !important; 
      --bs-btn-border-color:black !important; 
       --bs-btn-hover-bg:#796111 !important;
       --bs-btn-hover-border-color:black !important;
