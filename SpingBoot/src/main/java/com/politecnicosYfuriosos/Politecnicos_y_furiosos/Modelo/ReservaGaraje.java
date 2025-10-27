@@ -1,5 +1,6 @@
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo;
 
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,9 +13,9 @@ public class ReservaGaraje {
     @Column(name = "id_reserva")
     private Integer id;
 
-    // RELACIÓN ACTUALIZADA: Cambiar de Integer idCliente a Entity Cliente
+    // ✅ RELACIÓN CORRECTA
     @ManyToOne
-    @JoinColumn(name = "dni", nullable = false)
+    @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
     @ManyToOne
@@ -30,7 +31,7 @@ public class ReservaGaraje {
     @Column(name = "fecha_fin")
     private LocalDateTime fechaFin;
 
-    private Integer duracion; // se calcula en SQL pero puede almacenarse
+    private Integer duracion;
 
     @Enumerated(EnumType.STRING)
     private EstadoReserva estado;
@@ -56,7 +57,6 @@ public class ReservaGaraje {
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
-    // NUEVO: Getter y Setter para Cliente (reemplaza idCliente)
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
 
@@ -78,7 +78,7 @@ public class ReservaGaraje {
     public EstadoReserva getEstado() { return estado; }
     public void setEstado(EstadoReserva estado) { this.estado = estado; }
 
-    // Método helper para obtener el ID del cliente (si lo necesitas)
+    // ✅ MÉTODO HELPER para obtener el ID del cliente
     public Integer getClienteId() {
         return cliente != null ? cliente.getId() : null;
     }

@@ -1,62 +1,173 @@
-// Precios de los espacios (precio mensual)
+// Precios de los espacios (como fallback)
 const prices = {
     normal: 1200,
     premium: 2500,
     moto: 800
 };
 
-// Configuración del garage
-const garageData = [
-    {
-        floor: "Planta Baja – Acceso Principal",
-        rows: [
-            [
-                { num: 1, type: 'premium', occupied: false },
-                { num: 2, type: 'premium', occupied: false },
-                { num: 3, type: 'premium', occupied: true },
-                { num: 4, type: 'premium', occupied: false },
-                { num: 5, type: 'premium', occupied: false }
-            ],
-            [
-                { num: 6, type: 'normal', occupied: false },
-                { num: 7, type: 'normal', occupied: false },
-                { num: 8, type: 'normal', occupied: true },
-                { num: 9, type: 'normal', occupied: false },
-                { num: 10, type: 'normal', occupied: false }
-            ],
-            [
-                { num: 11, type: 'moto', occupied: false },
-                { num: 12, type: 'moto', occupied: false },
-                { num: 13, type: 'moto', occupied: false },
-                { num: 14, type: 'moto', occupied: true }
-            ]
-        ]
-    },
-    {
-        floor: "Primer Nivel – Zona Premium",
-        rows: [
-            [
-                { num: 15, type: 'normal', occupied: false },
-                { num: 16, type: 'normal', occupied: true },
-                { num: 17, type: 'normal', occupied: false },
-                { num: 18, type: 'normal', occupied: false },
-                { num: 19, type: 'normal', occupied: false }
-            ],
-            [
-                { num: 20, type: 'normal', occupied: false },
-                { num: 21, type: 'normal', occupied: false },
-                { num: 22, type: 'normal', occupied: true },
-                { num: 23, type: 'normal', occupied: false },
-                { num: 24, type: 'normal', occupied: false }
-            ]
-        ]
-    }
-];
-
 // Variables de estado
 let selectedSpaces = [];
 let currentFloor = 0;
 let selectedDate = null;
+let garageData = []; // Ahora vendrá de la base de datos
+
+// Función para cargar datos del garage desde Spring Boot
+async function loadGarageData() {
+    try {
+        console.log('Cargando datos del garage desde Spring Boot...');
+        const response = await fetch('http://localhost:8081/api/garage/1'); // ID 1 de tu garage
+        
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        const garage = await response.json();
+        console.log('Datos del garage cargados:', garage);
+        
+        // Convertir la estructura de la API a la que espera tu frontend
+        garageData = convertGarageStructure(garage);
+        console.log('Datos convertidos para frontend:', garageData);
+        
+        // Actualizar el selector de pisos
+        updateFloorSelector();
+        
+        // Renderizar el garage con datos reales
+        renderGarage();
+        
+    } catch (error) {
+        console.error('Error cargando datos del garage:', error);
+        // Usar datos de prueba como fallback
+        garageData = getFallbackData();
+        updateFloorSelector();
+        renderGarage();
+        alert('⚠️ Usando datos de prueba. El garage real no está disponible.');
+    }
+}
+
+// Función para convertir la estructura de la API
+function convertGarageStructure(garageApi) {
+    return garageApi.pisosDetalle.map(piso => ({
+        floor: piso.nombre,
+        rows: organizeSpacesIntoRows(piso.espacios)
+    }));
+}
+
+// Función para organizar espacios en filas (como en tu diseño original)
+function organizeSpacesIntoRows(espacios) {
+    const rows = [];
+    let currentRow = [];
+    
+    espacios.forEach((espacio, index) => {
+        currentRow.push({
+            num: espacio.numero,
+            type: mapTipoToFrontend(espacio.tipo),
+            occupied: espacio.ocupado,
+            id: espacio.id, // Guardar el ID real de la base de datos
+            precio: espacio.precio
+        });
+        
+        // Lógica para crear filas según tu diseño
+        // Para planta baja (piso 0): filas de 5, 5, 4 espacios
+        if (espacio.piso === 0) {
+            if (index === 4 || index === 9 || index === 13) {
+                rows.push([...currentRow]);
+                currentRow = [];
+            }
+        } 
+        // Para primer piso (piso 1): filas de 5, 5 espacios  
+        else if (espacio.piso === 1) {
+            if (index === 4 || index === 9) {
+                rows.push([...currentRow]);
+                currentRow = [];
+            }
+        }
+        // Para otros pisos: filas de 5 espacios
+        else if ((index + 1) % 5 === 0) {
+            rows.push([...currentRow]);
+            currentRow = [];
+        }
+    });
+    
+    // Agregar la última fila si queda algo
+    if (currentRow.length > 0) {
+        rows.push(currentRow);
+    }
+    
+    return rows;
+}
+
+// Mapear tipos de la base de datos al frontend
+function mapTipoToFrontend(tipoBD) {
+    const mapping = {
+        'auto': 'normal',
+        'premium': 'premium', 
+        'moto': 'moto'
+    };
+    return mapping[tipoBD] || 'normal';
+}
+
+// Actualizar el selector de pisos dinámicamente
+function updateFloorSelector() {
+    const floorSelector = document.getElementById('floorSelector');
+    floorSelector.innerHTML = '';
+    
+    garageData.forEach((piso, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = piso.floor;
+        floorSelector.appendChild(option);
+    });
+}
+
+// Datos de prueba como fallback
+function getFallbackData() {
+    return [
+        {
+            floor: "Planta Baja – Acceso Principal",
+            rows: [
+                [
+                    { num: 1, type: 'premium', occupied: false, id: 1 },
+                    { num: 2, type: 'premium', occupied: false, id: 2 },
+                    { num: 3, type: 'premium', occupied: true, id: 3 },
+                    { num: 4, type: 'premium', occupied: false, id: 4 },
+                    { num: 5, type: 'premium', occupied: false, id: 5 }
+                ],
+                [
+                    { num: 6, type: 'normal', occupied: false, id: 6 },
+                    { num: 7, type: 'normal', occupied: false, id: 7 },
+                    { num: 8, type: 'normal', occupied: true, id: 8 },
+                    { num: 9, type: 'normal', occupied: false, id: 9 },
+                    { num: 10, type: 'normal', occupied: false, id: 10 }
+                ],
+                [
+                    { num: 11, type: 'moto', occupied: false, id: 11 },
+                    { num: 12, type: 'moto', occupied: false, id: 12 },
+                    { num: 13, type: 'moto', occupied: false, id: 13 },
+                    { num: 14, type: 'moto', occupied: true, id: 14 }
+                ]
+            ]
+        },
+        {
+            floor: "Primer Nivel – Zona Premium", 
+            rows: [
+                [
+                    { num: 15, type: 'normal', occupied: false, id: 15 },
+                    { num: 16, type: 'normal', occupied: true, id: 16 },
+                    { num: 17, type: 'normal', occupied: false, id: 17 },
+                    { num: 18, type: 'normal', occupied: false, id: 18 },
+                    { num: 19, type: 'normal', occupied: false, id: 19 }
+                ],
+                [
+                    { num: 20, type: 'normal', occupied: false, id: 20 },
+                    { num: 21, type: 'normal', occupied: false, id: 21 },
+                    { num: 22, type: 'normal', occupied: true, id: 22 },
+                    { num: 23, type: 'normal', occupied: false, id: 23 },
+                    { num: 24, type: 'normal', occupied: false, id: 24 }
+                ]
+            ]
+        }
+    ];
+}
 
 // Función para cambiar de piso
 function changeFloor() {
@@ -88,6 +199,11 @@ function toggleTimeSelector() {
 function renderGarage() {
     const layout = document.getElementById('garageLayout');
     layout.innerHTML = '';
+
+    if (!garageData || garageData.length === 0) {
+        layout.innerHTML = '<div class="error">No hay datos del garage disponibles</div>';
+        return;
+    }
 
     const floor = garageData[currentFloor];
     const floorDiv = document.createElement('div');
@@ -140,7 +256,7 @@ function renderGarage() {
 
             // Agregar evento click solo a espacios disponibles
             if (!space.occupied) {
-                spaceDiv.onclick = () => toggleSpace(space.num, space.type);
+                spaceDiv.onclick = () => toggleSpace(space.num, space.type, space.id);
             }
 
             rowDiv.appendChild(spaceDiv);
@@ -152,8 +268,8 @@ function renderGarage() {
     layout.appendChild(floorDiv);
 }
 
-// Función para seleccionar/deseleccionar espacios
-function toggleSpace(num, type) {
+// Función para seleccionar/deseleccionar espacios (ACTUALIZADA)
+function toggleSpace(num, type, id) {
     const index = selectedSpaces.findIndex(s => s.num === num);
     
     if (index > -1) {
@@ -164,6 +280,7 @@ function toggleSpace(num, type) {
         const spaceInfo = {
             num: num,
             type: type,
+            id: id, // Usar el ID real de la base de datos
             floor: currentFloor,
             floorName: garageData[currentFloor].floor,
             price: calculatePrice(type)
@@ -215,12 +332,13 @@ function calculatePrice(type) {
     return monthlyPrices[type] * months;
 }
 
-// Función para actualizar el resumen (CORREGIDA)
+// Función para actualizar el resumen
 function updateSummary() {
     const durationSelector = document.getElementById("durationSelector");
     const durationDisplay = document.getElementById("durationDisplay");
     const totalPrice = document.getElementById("totalPrice");
     const selectedCount = document.getElementById("selectedCount");
+    const reserveBtn = document.getElementById("reserveBtn");
     
     const selectedValue = durationSelector.value;
     let displayText = "";
@@ -249,7 +367,6 @@ function updateSummary() {
     totalPrice.textContent = `$${total}`;
     
     // Habilitar/deshabilitar botón SOLO SI EXISTE
-    const reserveBtn = document.getElementById("reserveBtn");
     if (reserveBtn) {
         reserveBtn.disabled = selectedSpaces.length === 0;
     }
@@ -307,7 +424,8 @@ function prepareReservationData(date, durationValue, time) {
             number: space.num,
             type: space.type,
             floor: space.floor,
-            price: space.price
+            price: space.price,
+            id: space.id // ID real de la base de datos
         })),
         
         // Información de tiempo
@@ -323,7 +441,7 @@ function prepareReservationData(date, durationValue, time) {
         reservationDate: new Date().toISOString(),
         status: "pending",
         
-        // Información del cliente (aquí puedes agregar más campos)
+        // Información del cliente
         clientInfo: {
             name: "",
             email: "",
@@ -362,17 +480,59 @@ function showReservationSummary(reservation) {
     }
 }
 
-// ⚠️ FUNCIÓN PARA QUE TÚ IMPLEMENTES LA CONEXIÓN A BD
+// FUNCIÓN ACTUALIZADA: Enviar reserva a Spring Boot
 function sendToDatabase(reservationData) {
-    // Por ahora simulamos éxito
-    setTimeout(() => {
-        alert(`✅ RESERVA PREPARADA PARA BD\n\nDatos listos para enviar:\n- ${reservationData.spaces.length} espacios\n- Total: $${reservationData.total}\n\nRevisa la consola para ver el objeto completo.`);
-        
-        console.log('📦 DATOS PARA ENVIAR A BD:', reservationData);
-        
-        // Limpiar selección
-        clearSelection();
-    }, 500);
+    const clienteId = obtenerClienteId();
+    
+    // Usar los IDs reales de la base de datos
+    const espaciosIds = reservationData.spaces.map(space => space.id);
+    
+    const requestData = {
+        espaciosIds: espaciosIds,
+        fechaInicio: reservationData.date,
+        duracion: reservationData.duration,
+        horaInicio: reservationData.startTime || null
+    };
+
+    console.log('Enviando reserva con IDs reales:', requestData);
+
+    fetch('http://localhost:8081/api/reservas', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-User-Id': clienteId.toString()
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Respuesta del backend:', data);
+        if (data.success) {
+            alert(`✅ RESERVA CONFIRMADA\n\nEspacios: ${reservationData.spaces.map(s => s.number).join(', ')}\nDuración: ${getDurationText(reservationData.duration)}\nTotal: $${data.total}\n\n${data.mensaje}`);
+            
+            // Recargar los datos del garage para reflejar los cambios
+            loadGarageData();
+            clearSelection();
+        } else {
+            alert(`❌ ERROR\n\n${data.mensaje}`);
+        }
+    })
+    .catch(error => {
+        console.error('Error completo:', error);
+        alert('❌ Error al conectar con el servidor. Verifica que Spring Boot esté ejecutándose en puerto 8081.');
+    });
+}
+
+// Función para obtener ID del cliente (TEMPORAL)
+function obtenerClienteId() {
+    // TEMPORAL: Usar ID 1 para pruebas
+    // En el futuro, esto vendrá de tu sistema de login
+    return 1;
 }
 
 // Función para limpiar selección
@@ -393,7 +553,8 @@ function initializePage() {
     // Inicializar selector de hora
     toggleTimeSelector();
     
-    renderGarage();
+    // Cargar datos del garage desde Spring Boot
+    loadGarageData();
 }
 
 // Inicializar cuando se carga la página

@@ -1,4 +1,4 @@
-/*
+
 package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Service;
 // ReservaService.java
 
@@ -8,8 +8,8 @@ import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Garage.ReservaReque
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Dto.Garage.ReservaResponseDTO;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.*;
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.ClienteRepository;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.LugarRepository;
-import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.ReservaGarajeRepository;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.garaje.LugarRepository;
+import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.garaje.ReservaGarajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -136,4 +136,4 @@ public class ReservaService {
             reserva.setDuracion(meses * 30 * 24);
         }
     }
-}*/
+}

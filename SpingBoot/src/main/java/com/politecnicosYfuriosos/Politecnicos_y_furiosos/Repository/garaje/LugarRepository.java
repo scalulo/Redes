@@ -1,4 +1,4 @@
-package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository;
+package com.politecnicosYfuriosos.Politecnicos_y_furiosos.Repository.garaje;
 
 
 import com.politecnicosYfuriosos.Politecnicos_y_furiosos.Modelo.Lugar;
