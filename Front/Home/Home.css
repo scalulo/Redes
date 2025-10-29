@@ -40,7 +40,7 @@ p {
     flex-grow: 1;
     align-items: center;
     display: flex;
-    gap: 70%;
+    gap: 20em;
 }
 
 .nav-link:hover {
@@ -187,33 +187,7 @@ footer {
   filter: invert(1);
 }
 
-/* ======== RESPONSIVE ======== */
-@media (max-width: 992px) {
-  .big-card {
-    flex-direction: column;
-  }
 
-  .big-card-img {
-    min-height: 250px;
-  }
-
-  .big-card-body {
-    padding: 40px;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (min-width: 992px) {
-    .navbar-expand-lg .navbar-collapse {
-        display: flex !important;
-        flex-basis: auto;
-        flex-direction: row;
-        margin-left: 10em;
-    }
-}
     body {
       background-color: #000;
       color: #fff;
@@ -333,6 +307,7 @@ footer {
     .btn-success{
      --bs-btn-border-color:black !important; 
       --bs-btn-hover-bg:#796111 !important;
+      --bs-btn-bg:#4e3d03 !important;
       --bs-btn-hover-border-color:black !important;
       --bs-btn-display:flex;
       --bs-btn-active-bg: #382e0b  !important; 
@@ -388,3 +363,57 @@ footer {
       color: #D4AF37;
       transform: translateX(5px);
     }
+
+
+
+@media(max-width:990px   ){
+    .navbar-collapse{
+        gap: 25em;
+    }
+}
+
+@media(max-width:728px   ){
+    .navbar-collapse{
+        gap: 20em;
+    }
+}
+
+@media(max-width:570px   ){
+    .navbar-collapse{
+        gap: 14em;
+    }
+}
+
+@media(max-width:402px){
+    .navbar-collapse{
+        gap: 8em;
+    }
+}
+
+
+@media (max-width: 992px) {
+  .big-card {
+    flex-direction: column;
+  }
+
+  .big-card-img {
+    min-height: 250px;
+  }
+
+  .big-card-body {
+    padding: 40px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        flex-direction: row;
+        margin-left: 10em;
+    }
+}
